@@ -25,3 +25,6 @@ dist-ssr
 *.claude
 claude/
 claude/file-history/
+.claude
+/*
+!/kvi-profile

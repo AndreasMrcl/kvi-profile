@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,30 +6,13 @@
 
 @layer base {
   html { scroll-behavior: smooth; }
-  body { @apply bg-cream-50 text-zinc-800 font-body overflow-x-hidden; }
+  body {
+    @apply bg-paper-50 text-zinc-800 font-body overflow-x-hidden antialiased;
+    font-feature-settings: "ss01", "cv01";
+  }
 }
 
 @layer utilities {
-  .glass {
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.12);
-  }
-  .glass-dark {
-    background: rgba(10,53,36,0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(201,168,76,0.2);
-  }
-  .grain::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-  }
   .reveal-item {
     opacity: 0;
     transform: translateY(24px);
@@ -38,5 +21,38 @@
   .reveal-item.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+  .pattern-dots {
+    background-image: radial-gradient(rgba(10, 54, 92, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Subtle hover lift used across cards */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-3px);
+  }
+
+  /* Focus ring konsisten untuk a11y keyboard nav */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kvi-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded;
+  }
+}
+
+/* Reduce-motion: matikan animasi untuk user yang prefer no motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
