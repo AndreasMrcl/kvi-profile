@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
-import { hero, heroServices, heroSlides } from '../data/siteData';
-import { navigate } from '../hooks/useRoute';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { hero, heroServices, heroSlides } from "../data/siteData";
 
 const AUTOPLAY_MS = 6000;
+const resolveTo = (path, anchor) => (anchor ? `${path}#${anchor}` : path);
 
 export default function Hero() {
   const [active, setActive] = useState(0);
@@ -16,7 +17,10 @@ export default function Hero() {
     return () => clearInterval(id);
   }, [paused]);
 
-  const go = (i) => setActive(((i % heroSlides.length) + heroSlides.length) % heroSlides.length);
+  const go = (i) =>
+    setActive(
+      ((i % heroSlides.length) + heroSlides.length) % heroSlides.length,
+    );
 
   return (
     <section id="home" className="relative bg-paper-50">
@@ -34,7 +38,7 @@ export default function Hero() {
               <div
                 key={slide.id}
                 className={` transition-opacity duration-[1200ms] ease-in-out
-                  ${isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                  ${isActive ? "opacity-100 z-10" : "opacity-0 z-0"}`}
                 aria-hidden={!isActive}
               >
                 <div
@@ -57,17 +61,18 @@ export default function Hero() {
                       </p>
                       <div className="flex flex-wrap gap-3">
                         {slide.buttons.map((b) => (
-                          <button
+                          <Link
                             key={b.label}
-                            onClick={() => navigate(b.path, b.anchor)}
+                            to={resolveTo(b.path, b.anchor)}
                             className={`px-6 py-3 rounded-md text-xs md:text-[13px] font-bold tracking-wider transition-all
-                              ${b.primary
-                                ? 'bg-kvi-600 hover:bg-kvi-700 text-white shadow-card'
-                                : 'bg-white hover:bg-paper-100 text-navy-800 border border-white/60'
+                              ${
+                                b.primary
+                                  ? "bg-kvi-600 hover:bg-kvi-700 text-white shadow-card"
+                                  : "bg-white hover:bg-paper-100 text-navy-800 border border-white/60"
                               }`}
                           >
                             {b.label}
-                          </button>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -83,8 +88,18 @@ export default function Hero() {
             aria-label="Previous slide"
             className="hidden md:flex absolute z-20 left-4 top-1/2 -translate-y-1/2 w-11 h-11 items-center justify-center rounded-full bg-white/15 hover:bg-white text-white hover:text-navy-800 backdrop-blur border border-white/30 transition"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2.5}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </button>
           <button
@@ -92,8 +107,18 @@ export default function Hero() {
             aria-label="Next slide"
             className="hidden md:flex absolute z-20 right-4 top-1/2 -translate-y-1/2 w-11 h-11 items-center justify-center rounded-full bg-white/15 hover:bg-white text-white hover:text-navy-800 backdrop-blur border border-white/30 transition"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2.5}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </button>
 
@@ -105,7 +130,7 @@ export default function Hero() {
                 onClick={() => go(i)}
                 aria-label={`Slide ${i + 1}`}
                 className={`h-2 rounded-full transition-all
-                  ${i === active ? 'w-8 bg-white' : 'w-2 bg-white/50 hover:bg-white/80'}`}
+                  ${i === active ? "w-8 bg-white" : "w-2 bg-white/50 hover:bg-white/80"}`}
               />
             ))}
           </div>
@@ -117,9 +142,9 @@ export default function Hero() {
         <div className="max-w-[1320px] mx-auto px-6 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
             {heroServices.map((s, i) => (
-              <a
+              <Link
                 key={s.number}
-                href={s.href}
+                to={resolveTo(s.path, "")}
                 className="group relative bg-white rounded-xl p-5 md:p-6 shadow-card border border-zinc-100 hover:border-kvi-600 hover:-translate-y-1 transition-all duration-300 reveal-item"
                 style={{ transitionDelay: `${i * 120}ms` }}
               >
@@ -132,7 +157,11 @@ export default function Hero() {
                       stroke="currentColor"
                       strokeWidth={1.6}
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" d={s.icon} />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d={s.icon}
+                      />
                     </svg>
                   </div>
                   <div className="flex-1 min-w-0">
@@ -149,7 +178,7 @@ export default function Hero() {
                     </p>
                   </div>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>

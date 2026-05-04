@@ -1,6 +1,15 @@
 import hero1 from '../assets/hero_1.jpeg';
 import hero2 from '../assets/hero_2.jpeg';
 
+const slugify = (value = '') =>
+  value
+    .toString()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '');
+
 export const navLinks = [
   { label: 'BERANDA',              path: '/',          anchor: '' },
   { label: 'TENTANG KAMI',         path: '/tentang',   anchor: '' },
@@ -112,16 +121,49 @@ export const pengawas = [
 ];
 
 /* ─── BERITA ─── */
-export const berita = [
-  { id: 1, tanggal: '12 November 2024', kategori: 'Pengumuman', featured: true,  judul: 'Uji Kompetensi Gelombang II Tahun 2024', ringkasan: 'Uji Kompetensi Gelombang II tahun 2024 akan dilaksanakan pada 15 Desember 2024. Simak jadwal dan persyaratannya.', gambar: 'https://images.unsplash.com/id/foto/orang-yang-menggunakan-pensil-oXV3bzR7jxI' },
+const beritaTemplate = {
+  penulis: 'Divisi Registrasi KVI',
+  baca: '5 menit baca',
+  konten: [
+    { tipe: 'p', isi: 'Konsil Veteriner Indonesia (KVI) menyampaikan pembaruan resmi terkait kegiatan dan kebijakan veteriner nasional. Informasi berikut disusun untuk membantu dokter hewan memahami konteks, jadwal, serta langkah yang perlu disiapkan.' },
+    { tipe: 'h2', isi: 'Ringkasan Utama' },
+    { tipe: 'p', isi: 'KVI menekankan pentingnya kepatuhan terhadap standar profesi, tata laksana layanan veteriner, serta kesiapan administrasi bagi seluruh pemangku kepentingan.' },
+    { tipe: 'quote', isi: 'Transparansi informasi dan kepatuhan regulasi adalah kunci untuk menjaga mutu profesi veteriner di Indonesia.' },
+    { tipe: 'h2', isi: 'Poin Penting' },
+    { tipe: 'ul', isi: ['Jadwal dan ketentuan diumumkan melalui kanal resmi KVI', 'Dokumen persyaratan disiapkan lebih awal', 'Pantau pembaruan kebijakan bila ada perubahan'] },
+    { tipe: 'h2', isi: 'Langkah Selanjutnya' },
+    { tipe: 'p', isi: 'Silakan kunjungi portal resmi KVI untuk detail lengkap, formulir, dan informasi tambahan terkait agenda atau kebijakan terkait.' },
+  ],
+  tags: ['Informasi Resmi', 'KVI', 'Veteriner'],
+  infoBox: [
+    { label: 'Sumber',  val: 'Konsil Veteriner Indonesia' },
+    { label: 'Kanal',   val: 'Website dan Media Sosial' },
+    { label: 'Status',  val: 'Diperbarui' },
+    { label: 'Akses',   val: 'Publik' },
+  ],
+};
+
+const beritaRaw = [
+  { id: 1, tanggal: '12 November 2024', kategori: 'Pengumuman', featured: true,  judul: 'Uji Kompetensi Gelombang II Tahun 2024', ringkasan: 'Uji Kompetensi Gelombang II tahun 2024 akan dilaksanakan pada 15 Desember 2024. Simak jadwal dan persyaratannya.', gambar: 'https://images.unsplash.com/photo-1534644107580-3a4dbd494a95?w=800&auto=format&fit=crop&q=60' },
   { id: 2, tanggal: '28 Oktober 2024',  kategori: 'Kegiatan',   featured: false, judul: 'Seminar Etika Veteriner Nasional 2024',     ringkasan: 'Seminar nasional bersama KVI dan PDHI membahas etika veteriner serta penegakan kode etik profesi dokter hewan.', gambar: 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=800&auto=format&fit=crop&q=60' },
-  { id: 3, tanggal: '10 Oktober 2024',  kategori: 'Regulasi',   featured: false, judul: 'Kebijakan Baru Registrasi STRV 2024',        ringkasan: 'Informasi terbaru terkait perubahan kebijakan dan tata cara Registrasi Surat Tanda Registrasi Veteriner (STRV).', gambar: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=800&auto=format&fit=crop&q=60' },
+  { id: 3, tanggal: '10 Oktober 2024',  kategori: 'Regulasi',   featured: false, judul: 'Kebijakan Baru Registrasi STRV 2024',        ringkasan: 'Informasi terbaru terkait perubahan kebijakan dan tata cara Registrasi Surat Tanda Registrasi Veteriner (STRV).', gambar: 'https://images.unsplash.com/photo-1550418290-a8d86ad674a6?w=800&auto=format&fit=crop&q=60' },
   { id: 4, tanggal: '02 Oktober 2024',  kategori: 'Kegiatan',   featured: false, judul: 'Workshop Standar Kompetensi Dokter Hewan',    ringkasan: 'KVI menyelenggarakan workshop nasional penyusunan standar kompetensi dokter hewan bersama universitas veteriner se-Indonesia.', gambar: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&auto=format&fit=crop&q=60' },
   { id: 5, tanggal: '20 September 2024',kategori: 'Pengumuman', featured: false, judul: 'Pendaftaran Anggota KVI Periode 2024–2025',   ringkasan: 'Pendaftaran keanggotaan KVI kini dibuka untuk periode 2024–2025. Segera daftarkan diri Anda melalui portal SIVET.', gambar: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=60' },
   { id: 6, tanggal: '05 September 2024',kategori: 'Regulasi',   featured: false, judul: 'Peraturan Baru Praktik Kedokteran Hewan',     ringkasan: 'KVI merilis peraturan baru tentang standar praktik kedokteran hewan di fasilitas pelayanan umum dan swasta.', gambar: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&auto=format&fit=crop&q=60' },
-  { id: 7, tanggal: '18 Agustus 2024',  kategori: 'Kegiatan',   featured: false, judul: 'Pelatihan Pengawasan Karantina Hewan',        ringkasan: 'Pelatihan intensif bagi dokter hewan karantina dalam rangka peningkatan kapasitas pengawasan lalu lintas hewan antar wilayah.', gambar: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&auto=format&fit=crop&q=60' },
+  { id: 7, tanggal: '18 Agustus 2024',  kategori: 'Kegiatan',   featured: false, judul: 'Pelatihan Pengawasan Karantina Hewan',        ringkasan: 'Pelatihan intensif bagi dokter hewan karantina dalam rangka peningkatan kapasitas pengawasan lalu lintas hewan antar wilayah.', gambar: 'https://images.unsplash.com/photo-1488998527040-85054a85150e?w=800&auto=format&fit=crop&q=60' },
   { id: 8, tanggal: '01 Agustus 2024',  kategori: 'Pengumuman', featured: false, judul: 'Hasil Uji Kompetensi Gelombang I 2024',       ringkasan: 'Pengumuman resmi hasil Uji Kompetensi Veteriner Gelombang I tahun 2024. Selamat kepada seluruh peserta yang dinyatakan lulus.', gambar: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800&auto=format&fit=crop&q=60' },
 ];
+
+export const berita = beritaRaw.map((item) => ({
+  ...item,
+  slug: slugify(item.judul),
+  penulis: beritaTemplate.penulis,
+  baca: beritaTemplate.baca,
+  subjudul: item.ringkasan,
+  konten: [...beritaTemplate.konten],
+  tags: [...beritaTemplate.tags],
+  infoBox: [...beritaTemplate.infoBox],
+}));
 
 /* ─── PUBLIKASI ─── */
 export const publikasi = [
@@ -147,7 +189,7 @@ export const sivet = {
   subtitle: 'Sistem Informasi Veteriner Online',
   desc: 'Portal terintegrasi untuk registrasi, perpanjangan, dan layanan dokter hewan secara daring.',
   cta: 'Masuk ke SIVET',
-  href: '#/registrasi',
+  href: '/registrasi',
 };
 
 /* ─── CONTACT ─── */

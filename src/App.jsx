@@ -1,34 +1,58 @@
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import BackToTop from './components/BackToTop';
-import Home from './pages/Home';
-import TentangKami from './pages/TentangKami';
-import BeritaPublikasi from './pages/BeritaPublikasi';
-import RegistrasiLisensi from './pages/RegistrasiLisensi';
-import EtikaStandar from './pages/EtikaStandar';
-import HubungiKami from './pages/HubungiKami';
-import DetailBerita from './pages/DetailBerita';
-import { useReveal } from './hooks/useReveal';
-import { useRoute } from './hooks/useRoute';
+import { useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import BackToTop from "./components/BackToTop";
+import Home from "./pages/Home";
+import TentangKami from "./pages/TentangKami";
+import BeritaPublikasi from "./pages/BeritaPublikasi";
+import RegistrasiLisensi from "./pages/RegistrasiLisensi";
+import EtikaStandar from "./pages/EtikaStandar";
+import HubungiKami from "./pages/HubungiKami";
+import DetailBerita from "./pages/DetailBerita";
+import NotFound from "./pages/NotFound";
+import { useReveal } from "./hooks/useReveal";
+
+function ScrollManager() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const targetId = location.hash.replace("#", "");
+      const el = document.getElementById(targetId);
+      if (el) {
+        requestAnimationFrame(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        return;
+      }
+    }
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [location.pathname, location.hash]);
+
+  return null;
+}
 
 export default function App() {
-  const { path } = useRoute();
-  useReveal([path]);
-
-  const renderPage = () => {
-    if (path.startsWith('/tentang'))   return <TentangKami />;
-    if (path.startsWith('/berita/'))   return <DetailBerita />;
-    if (path.startsWith('/berita'))    return <BeritaPublikasi />;
-    if (path.startsWith('/registrasi'))return <RegistrasiLisensi />;
-    if (path.startsWith('/etika'))     return <EtikaStandar />;
-    if (path.startsWith('/kontak'))    return <HubungiKami />;
-    return <Home />;
-  };
+  const location = useLocation();
+  useReveal([location.pathname]);
 
   return (
     <>
-      <Navbar currentPath={path} />
-      <main>{renderPage()}</main>
+      <Navbar />
+      <ScrollManager />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/tentang" element={<TentangKami />} />
+          <Route path="/registrasi" element={<RegistrasiLisensi />} />
+          <Route path="/etika" element={<EtikaStandar />} />
+          <Route path="/kontak" element={<HubungiKami />} />
+          <Route path="/berita" element={<BeritaPublikasi />} />
+          <Route path="/berita/:slug" element={<DetailBerita />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
       <Footer />
       <BackToTop />
     </>

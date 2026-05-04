@@ -1,4 +1,4 @@
-import { navigate } from '../hooks/useRoute';
+import { Link } from "react-router-dom";
 
 /**
  * Reusable page header with navy background, breadcrumb, and optional tab bar.
@@ -16,15 +16,16 @@ import { navigate } from '../hooks/useRoute';
  */
 export default function PageHero({
   breadcrumbs = [],
-  title = '',
-  subtitle = '',
+  title = "",
+  subtitle = "",
   badge = null,
   tabs = [],
-  activeTab = '',
+  activeTab = "",
   onTabChange = () => {},
   image = null,
   actions = [],
 }) {
+  const resolveTo = (path, anchor) => (anchor ? `${path}#${anchor}` : path);
   return (
     <div className="relative bg-navy-800 pt-[88px] md:pt-[104px] overflow-hidden">
       {/* background pattern */}
@@ -52,18 +53,30 @@ export default function PageHero({
             {breadcrumbs.map((b, i) => (
               <span key={b.label} className="flex items-center gap-2">
                 {i < breadcrumbs.length - 1 ? (
-                  <button
-                    onClick={() => navigate(b.path, '')}
+                  <Link
+                    to={resolveTo(b.path, b.anchor)}
                     className="text-xs text-white/50 hover:text-white/80 transition-colors font-body"
                   >
                     {b.label}
-                  </button>
+                  </Link>
                 ) : (
-                  <span className="text-xs text-white/90 font-semibold font-body">{b.label}</span>
+                  <span className="text-xs text-white/90 font-semibold font-body">
+                    {b.label}
+                  </span>
                 )}
                 {i < breadcrumbs.length - 1 && (
-                  <svg className="w-3 h-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  <svg
+                    className="w-3 h-3 text-white/40"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 5l7 7-7 7"
+                    />
                   </svg>
                 )}
               </span>
@@ -73,45 +86,58 @@ export default function PageHero({
 
         {/* Badge */}
         {badge && (
-          <div className={`inline-flex items-center gap-2 rounded-md px-3 py-1 mb-5 border
-            ${badge.color === 'gold'
-              ? 'bg-gold-400/12 border-gold-400/25'
-              : badge.color === 'navy'
-              ? 'bg-white/8 border-white/15'
-              : 'bg-kvi-500/15 border-kvi-500/30'}`}
+          <div
+            className={`inline-flex items-center gap-2 rounded-md px-3 py-1 mb-5 border
+            ${
+              badge.color === "gold"
+                ? "bg-gold-400/12 border-gold-400/25"
+                : badge.color === "navy"
+                  ? "bg-white/8 border-white/15"
+                  : "bg-kvi-500/15 border-kvi-500/30"
+            }`}
           >
-            <span className={`w-1.5 h-1.5 rounded-full
-              ${badge.color === 'gold' ? 'bg-gold-400' : badge.color === 'navy' ? 'bg-white/60' : 'bg-kvi-400'}`}
+            <span
+              className={`w-1.5 h-1.5 rounded-full
+              ${badge.color === "gold" ? "bg-gold-400" : badge.color === "navy" ? "bg-white/60" : "bg-kvi-400"}`}
             />
-            <span className={`text-[11px] font-bold tracking-widest uppercase
-              ${badge.color === 'gold' ? 'text-gold-300' : badge.color === 'navy' ? 'text-white/80' : 'text-kvi-300'}`}>
+            <span
+              className={`text-[11px] font-bold tracking-widest uppercase
+              ${badge.color === "gold" ? "text-gold-300" : badge.color === "navy" ? "text-white/80" : "text-kvi-300"}`}
+            >
               {badge.text}
             </span>
           </div>
         )}
 
         {/* Title + subtitle */}
-        <h1 className="font-display text-4xl md:text-[46px] font-extrabold text-white leading-[1.1] mb-5 tracking-tight" style={{ textWrap: 'pretty' }}>
+        <h1
+          className="font-display text-4xl md:text-[46px] font-extrabold text-white leading-[1.1] mb-5 tracking-tight"
+          style={{ textWrap: "pretty" }}
+        >
           {title}
         </h1>
         {subtitle && (
-          <p className="text-white/70 text-[15px] leading-[1.75] max-w-[540px] mb-8 font-body">{subtitle}</p>
+          <p className="text-white/70 text-[15px] leading-[1.75] max-w-[540px] mb-8 font-body">
+            {subtitle}
+          </p>
         )}
 
         {/* Action buttons */}
         {actions.length > 0 && (
           <div className="flex flex-wrap gap-3 mb-10">
             {actions.map((a) => (
-              <button
+              <Link
                 key={a.label}
-                onClick={() => navigate(a.path, a.anchor)}
+                to={resolveTo(a.path, a.anchor)}
                 className={`px-6 py-3 rounded-lg text-[13px] font-bold tracking-wide transition-all
-                  ${a.primary
-                    ? 'bg-kvi-600 hover:bg-kvi-700 text-white shadow-card'
-                    : 'bg-white/8 hover:bg-white/15 text-white border border-white/15'}`}
+                  ${
+                    a.primary
+                      ? "bg-kvi-600 hover:bg-kvi-700 text-white shadow-card"
+                      : "bg-white/8 hover:bg-white/15 text-white border border-white/15"
+                  }`}
               >
                 {a.label}
-              </button>
+              </Link>
             ))}
           </div>
         )}
@@ -124,9 +150,11 @@ export default function PageHero({
                 key={t.key}
                 onClick={() => onTabChange(t.key)}
                 className={`px-5 py-3 rounded-t-lg text-[12px] font-bold transition-all
-                  ${activeTab === t.key
-                    ? 'bg-white text-navy-800'
-                    : 'bg-white/8 text-white/75 hover:bg-white/15'}`}
+                  ${
+                    activeTab === t.key
+                      ? "bg-white text-navy-800"
+                      : "bg-white/8 text-white/75 hover:bg-white/15"
+                  }`}
               >
                 {t.label}
               </button>
