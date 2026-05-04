@@ -32,7 +32,7 @@ function HeroSlider() {
               aria-hidden={i !== active}
             >
               <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${slide.image}')` }} />
-              <div className="absolute inset-0 bg-gradient-to-r from-navy-900/88 via-navy-800/55 to-navy-900/15" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(6,37,67,0.88), rgba(10,54,92,0.55), rgba(6,37,67,0.15))' }} />
               <div className="relative z-10 h-full max-w-[1320px] mx-auto px-6 md:px-8 flex flex-col justify-center">
                 <div className="max-w-2xl">
                   <h1 className="font-display text-3xl md:text-5xl lg:text-[52px] font-extrabold text-white leading-[1.12] mb-5 uppercase tracking-tight" style={{ textWrap: 'pretty' }}>
