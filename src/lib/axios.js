@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 const axios = Axios.create({
-  baseURL: "", // KOSONGKAN BAGIAN INI SANGAT PENTING!
+  baseURL: 'https://api.konsilveteriner.com',
   withCredentials: true,
   headers: {
     "Accept": "application/json",
