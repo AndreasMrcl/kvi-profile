@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { navLinks } from "../data/siteData";
 import Logo from "./Logo";
+import { useAuth } from "../contexts/AuthContext";
 
 const resolveTo = (path, anchor) => (anchor ? `${path}#${anchor}` : path);
 
 export default function Navbar() {
+  const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -16,6 +19,12 @@ export default function Navbar() {
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
+
+  const handleLogout = async () => {
+    await logout();
+    closeMenu();
+    navigate("/");
+  };
 
   return (
     <nav
@@ -56,37 +65,43 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* SIVET CTA */}
-        <Link
-          to="/registrasi"
-          onClick={closeMenu}
-          className="hidden md:flex items-center gap-3 pl-3 pr-4 py-2.5 bg-navy-800 hover:bg-navy-900 text-white rounded-lg transition-colors shadow-sm"
-        >
-          <div className="w-9 h-9 rounded-md bg-white/10 flex items-center justify-center flex-shrink-0">
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 12h6m-3-3v6m-9 0a9 9 0 1118 0 9 9 0 01-18 0z"
-              />
-            </svg>
-          </div>
-          <div className="leading-tight text-left">
-            <div className="text-[13px] font-bold tracking-wide">SIVET</div>
-            <div className="text-[10px] text-white/70 font-medium">
-              Sistem Informasi Veteriner
-            </div>
-          </div>
-          <div className="pl-3 ml-1 border-l border-white/20 text-[11px] font-semibold whitespace-nowrap">
-            Log in / Register
-          </div>
-        </Link>
+        {/* Auth buttons / User menu */}
+        <div className="hidden md:flex items-center gap-3">
+          {currentUser ? (
+            <>
+              <Link
+                to="/profile"
+                onClick={closeMenu}
+                className="text-sm font-medium text-navy-800 hover:text-kvi-600 transition-colors"
+              >
+                {currentUser.name}
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors text-sm font-medium"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                onClick={closeMenu}
+                className="px-4 py-2.5 text-navy-800 hover:text-kvi-600 font-medium text-sm transition-colors"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                onClick={closeMenu}
+                className="px-4 py-2.5 bg-navy-800 hover:bg-navy-900 text-white rounded-lg transition-colors text-sm font-medium"
+              >
+                Daftar
+              </Link>
+            </>
+          )}
+        </div>
 
         {/* Mobile hamburger */}
         <button
@@ -136,13 +151,45 @@ export default function Navbar() {
               {link.label}
             </NavLink>
           ))}
-          <Link
-            to="/registrasi"
-            onClick={closeMenu}
-            className="mt-2 inline-flex items-center justify-center gap-2 px-4 py-3 bg-navy-800 text-white rounded-lg text-sm font-semibold"
-          >
-            SIVET · Log in / Register
-          </Link>
+          <div className="mt-4 pt-4 border-t border-zinc-100 flex flex-col gap-2">
+            {currentUser ? (
+              <>
+                <div className="px-4 py-2 text-sm text-navy-800 font-medium">
+                  {currentUser.name}
+                </div>
+                <Link
+                  to="/profile"
+                  onClick={closeMenu}
+                  className="px-4 py-2.5 text-center bg-blue-600 text-white rounded-lg text-sm font-medium"
+                >
+                  Profil
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2.5 bg-red-600 text-white rounded-lg text-sm font-medium"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  onClick={closeMenu}
+                  className="px-4 py-2.5 text-center bg-navy-700 text-white rounded-lg text-sm font-medium"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={closeMenu}
+                  className="px-4 py-2.5 text-center bg-navy-800 text-white rounded-lg text-sm font-medium"
+                >
+                  Daftar
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       )}
     </nav>
