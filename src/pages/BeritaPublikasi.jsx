@@ -2,6 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { berita, publikasi, acara, sivet } from "../data/siteData";
 import PageHero from "../components/PageHero";
+import UnderConstruction from "../components/UnderConstruction";
+
+export default function BeritaPublikasi() {
+  return <UnderConstruction title="Berita & Publikasi" />;
+}
 
 const KAT_COLOR = {
   Pengumuman: { pill: "bg-kvi-50 text-kvi-600", border: "border-kvi-200" },
@@ -582,7 +587,44 @@ function PublikasiTab() {
 }
 
 /* ── Page ── */
-export default function BeritaPublikasi() {
+// export default function BeritaPublikasi() {
+//   const [activeTab, setActiveTab] = useState("berita");
+
+//   return (
+//     <>
+//       <PageHero
+//         breadcrumbs={[
+//           { label: "Beranda", path: "/" },
+//           { label: "Berita & Publikasi" },
+//         ]}
+//         title="BERITA & PUBLIKASI"
+//         subtitle="Informasi terkini, pengumuman resmi, dan dokumen publikasi dari Konsil Veteriner Indonesia."
+//         tabs={[
+//           { key: "berita", label: "Berita & Pengumuman" },
+//           { key: "publikasi", label: "Publikasi & Dokumen" },
+//         ]}
+//         activeTab={activeTab}
+//         onTabChange={setActiveTab}
+//       />
+//       <div
+//         className={`border-t-4 border-kvi-500 ${activeTab === "berita" ? "bg-paper-50" : "bg-white"}`}
+//       >
+//         <div className="max-w-[1320px] mx-auto px-6 md:px-8 py-12">
+//           <div className="grid lg:grid-cols-[1fr_320px] gap-10 items-start">
+//             <div>
+//               {activeTab === "berita" ? <BeritaTab /> : <PublikasiTab />}
+//             </div>
+//             <div className="sticky top-24">
+//               <EventsSidebar />
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+
+function BeritaPublikasiContent() {
   const [activeTab, setActiveTab] = useState("berita");
 
   return (
