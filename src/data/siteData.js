@@ -23,20 +23,20 @@ export const navLinks = [
 export const heroSlides = [
   {
     id: 'slide1', image: hero1,
-    headline: 'MEWUJUDKAN PROFESI VETERINER YANG UNGGUL DAN BERINTEGRITAS DI INDONESIA',
-    subheadline: 'Badan Peraturan Resmi Dokter Hewan di Indonesia, Mengatur dan Mengawasi Praktik Kedokteran Hewan untuk Kesejahteraan Hewan dan Masyarakat.',
+    headline: 'SELAMAT DATANG DI KONSIL VETERINER INDONESIA',
+    subheadline: 'Mewujudkan Standar Kedokteran Hewan yang Profesional, Bermutu, dan Melindungi Masyarakat.',
     buttons: [
-      { label: 'DAFTAR REGISTRASI BARU', path: '/registrasi', anchor: '', primary: true },
-      { label: 'PELAJARI REGULASI',      path: '/tentang',    anchor: '', primary: false },
+      { label: 'DAFTAR REGISTRASI BARU', path: '/register', anchor: '', primary: true },
+      { label: 'PELAJARI LEBIH LANJUT',      path: '/tentang',    anchor: '', primary: false },
     ],
   },
   {
     id: 'slide2', image: hero2,
-    headline: 'MENJAGA KESEHATAN HEWAN DAN KARANTINA UNTUK INDONESIA',
-    subheadline: 'Mengawasi praktik kedokteran hewan di area karantina, peternakan, dan pelayanan publik demi kesejahteraan hewan dan masyarakat.',
+    headline: 'SELAMAT DATANG DI KONSIL VETERINER INDONESIA',
+    subheadline: 'Mewujudkan Standar Kedokteran Hewan yang Profesional, Bermutu, dan Melindungi Masyarakat.',
     buttons: [
-      { label: 'DAFTAR REGISTRASI BARU', path: '/registrasi', anchor: '', primary: true },
-      { label: 'PELAJARI REGULASI',      path: '/tentang',    anchor: '', primary: false },
+      { label: 'DAFTAR REGISTRASI BARU', path: '/register', anchor: '', primary: true },
+      { label: 'PELAJARI LEBIH LANJUT',      path: '/tentang',    anchor: '', primary: false },
     ],
   },
 ];
@@ -57,7 +57,7 @@ export const homeStats = [
 
 /* ─── HOME FAQ ─── */
 export const homeFaq = [
-  { q: 'Apa itu Konsil Veteriner Indonesia (KVI)?', a: 'KVI adalah lembaga konsil profesi resmi yang mengatur dan mengawasi standar pendidikan, registrasi, serta praktik kedokteran hewan di Indonesia. KVI didirikan atas dukungan asosiasi profesi seperti AFKHI, APSTVI, PDHI, PAVETI, dan PARAVETINDO.' },
+  { q: 'Apa itu Konsil Veteriner Indonesia (KVI)?', a: 'KVI adalah perkumpulan yang berazaskan Pancasila serta bersifat nirlaba dan kekeluargaan. Kami berdedikasi untuk menetapkan standar pendidikan kedokteran hewan, melakukan registrasi, dan meningkatkan mutu pelayanan demi perlindungan masyarakat penerima jasa.' },
   { q: 'Apa itu STRV dan siapa yang wajib memilikinya?', a: 'STRV (Surat Tanda Registrasi Veteriner) adalah bukti registrasi resmi bagi dokter hewan yang telah memenuhi standar kompetensi nasional. Setiap dokter hewan lulusan dalam maupun luar negeri yang ingin berpraktik di Indonesia wajib memilikinya.' },
   { q: 'Bagaimana cara mendaftar STRV atau SIP?', a: 'Pendaftaran dilakukan secara online melalui portal SIVET (sivet.kvi.or.id). Buat akun, lengkapi formulir, unggah dokumen persyaratan, ikuti uji kompetensi (untuk pendaftar baru), dan tunggu verifikasi KVI dalam 7–14 hari kerja.' },
   { q: 'Berapa masa berlaku STRV dan SIP?', a: 'STRV berlaku selama 5 tahun dan dapat diperpanjang. SIP berlaku selama 3 tahun. Perpanjangan dilakukan sebelum masa berlaku habis melalui portal SIVET tanpa perlu mengikuti uji kompetensi ulang.' },

@@ -316,7 +316,7 @@ export default function TentangKami() {
           { label: "Tentang Kami" },
         ]}
         title={"KONSIL\nVETERINER\nINDONESIA"}
-        subtitle="Lembaga konsil profesi resmi yang mengatur dan mengawasi standar pendidikan, registrasi, serta praktik kedokteran hewan di seluruh Indonesia."
+        subtitle="KVI adalah perkumpulan yang berazaskan Pancasila serta bersifat nirlaba dan kekeluargaan. Kami berdedikasi untuk menetapkan standar pendidikan kedokteran hewan, melakukan registrasi, dan meningkatkan mutu pelayanan demi perlindungan masyarakat penerima jasa."
         tabs={TABS}
         activeTab="profil"
         onTabChange={scrollTo}
