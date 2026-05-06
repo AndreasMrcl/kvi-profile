@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import axios from "../lib/axios"; 
 
 const AuthContext = createContext();
 
@@ -7,71 +8,41 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const API_BASE_URL = "http://localhost:8000/api";
+  const csrf = async () => {
+    try {
+      await axios.get("/sanctum/csrf-cookie");
+    } catch (err) {
+      console.error("Gagal mendapatkan CSRF cookie", err);
+    }
+  };
 
-  // Check if user is already authenticated on mount
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/auth/me`, {
-          credentials: "include",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setCurrentUser(data);
-        } else {
-          setCurrentUser(null);
-        }
+        const response = await axios.get("/api/auth/me");
+        setCurrentUser(response.data.user || response.data);
       } catch (err) {
-        console.error("Auth check failed:", err);
         setCurrentUser(null);
       } finally {
         setIsLoading(false);
       }
     };
-
     checkAuth();
   }, []);
 
-  const register = async (name, email, password, passwordConfirmation) => {
+  const register = async (data) => {
     setError(null);
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/register`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          password_confirmation: passwordConfirmation,
-        }),
-      });
+      await csrf(); 
+      const response = await axios.post("/api/auth/register", data);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.message || "Pendaftaran gagal");
-        setIsLoading(false);
-        return false;
-      }
-
-      setCurrentUser(data);
+      setCurrentUser(response.data.user || response.data);
       setIsLoading(false);
       return true;
     } catch (err) {
-      const errorMsg = err.message || "Terjadi kesalahan saat pendaftaran";
-      setError(errorMsg);
+      setError(err.response?.data?.message || "Pendaftaran gagal");
       setIsLoading(false);
       return false;
     }
@@ -82,136 +53,63 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/login`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+      await csrf(); 
+      const response = await axios.post("/api/auth/login", {
+        email,
+        password,
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.message || "Login gagal");
-        setIsLoading(false);
-        return false;
-      }
-
-      setCurrentUser(data);
+      setCurrentUser(response.data.user || response.data);
       setIsLoading(false);
       return true;
     } catch (err) {
-      const errorMsg = err.message || "Terjadi kesalahan saat login";
-      setError(errorMsg);
+      setError(err.response?.data?.message || "Login gagal");
       setIsLoading(false);
       return false;
     }
   };
 
   const logout = async () => {
-    setError(null);
-    setIsLoading(true);
-
     try {
-      await fetch(`${API_BASE_URL}/auth/logout`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-
+      await axios.post("/api/auth/logout");
       setCurrentUser(null);
-      setIsLoading(false);
-      return true;
     } catch (err) {
-      console.error("Logout error:", err);
-      setCurrentUser(null);
-      setIsLoading(false);
-      return true;
+      console.error(err);
     }
   };
 
-  const updateProfile = async (name, email) => {
+  // TAMBAHAN: Fungsi Update Profile
+  const updateProfile = async (data) => {
     setError(null);
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/profile`, {
-        method: "PUT",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.message || "Update profil gagal");
-        setIsLoading(false);
-        return false;
-      }
-
-      setCurrentUser(data);
+      const response = await axios.put("/api/auth/profile", data);
+      setCurrentUser(response.data.user || response.data);
       setIsLoading(false);
       return true;
     } catch (err) {
-      const errorMsg = err.message || "Terjadi kesalahan saat update profil";
-      setError(errorMsg);
+      setError(err.response?.data?.message || "Update profil gagal");
       setIsLoading(false);
       return false;
     }
   };
 
-  const updatePassword = async (
-    currentPassword,
-    newPassword,
-    passwordConfirmation,
-  ) => {
+  // TAMBAHAN: Fungsi Update Password
+  const updatePassword = async (currentPassword, newPassword, passwordConfirmation) => {
     setError(null);
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/password`, {
-        method: "PUT",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          current_password: currentPassword,
-          password: newPassword,
-          password_confirmation: passwordConfirmation,
-        }),
+      await axios.put("/api/auth/password", {
+        current_password: currentPassword,
+        password: newPassword,
+        password_confirmation: passwordConfirmation,
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.message || "Update password gagal");
-        setIsLoading(false);
-        return false;
-      }
-
       setIsLoading(false);
       return true;
     } catch (err) {
-      const errorMsg = err.message || "Terjadi kesalahan saat update password";
-      setError(errorMsg);
+      setError(err.response?.data?.message || "Update password gagal");
       setIsLoading(false);
       return false;
     }
@@ -224,8 +122,8 @@ export const AuthProvider = ({ children }) => {
     register,
     login,
     logout,
-    updateProfile,
-    updatePassword,
+    updateProfile, // Mengekspor fungsi
+    updatePassword, // Mengekspor fungsi
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -233,8 +131,6 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth harus digunakan dalam AuthProvider");
-  }
+  if (!context) throw new Error("useAuth harus dalam AuthProvider");
   return context;
 };
