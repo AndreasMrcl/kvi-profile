@@ -22,7 +22,6 @@ export default function Register() {
   });
   
   const [error, setError] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,7 +34,6 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    setSuccessMsg("");
 
     // UX: Validasi manual memastikan semua tidak kosong
     const requiredFields = ['name', 'birth_place', 'birth_date', 'address', 'occupation', 'phone', 'email', 'university', 'graduation_year', 'password'];
@@ -57,14 +55,14 @@ export default function Register() {
       return;
     }
 
+    sessionStorage.setItem("registerSuccess", "Pendaftaran berhasil! Selamat datang di KVI.");
+
     const success = await register(formData);
     
     if (success) {
-      setSuccessMsg("Pendaftaran berhasil! Mengalihkan ke halaman profil...");
-      setTimeout(() => {
-        navigate("/profile");
-      }, 2000);
+      navigate("/profile");
     } else {
+      sessionStorage.removeItem("registerSuccess");
       setError(contextError || "Pendaftaran gagal. Periksa kembali data Anda.");
     }
   };

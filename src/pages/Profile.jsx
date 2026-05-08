@@ -17,6 +17,21 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState("profile");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [toastMsg, setToastMsg] = useState("");
+
+  useEffect(() => {
+    // 1. Cek apakah ada pesan sukses pendaftaran di memori browser
+    const msg = sessionStorage.getItem("registerSuccess");
+    if (msg) {
+      setToastMsg(msg);
+      sessionStorage.removeItem("registerSuccess"); // Hapus agar tidak muncul terus-menerus
+
+      // 2. Hilangkan toast otomatis setelah 5 detik
+      setTimeout(() => {
+        setToastMsg("");
+      }, 5000);
+    }
+  }, []);
 
   // State diperbarui dengan memasukkan data keanggotaan
   const [profileForm, setProfileForm] = useState({
@@ -142,6 +157,23 @@ export default function Profile() {
 
   return (
     <>
+      {toastMsg && (
+        <div
+          className="mb-6 bg-green-50 border-l-4 border-green-500 text-green-700 p-4 rounded-r-lg shadow-sm flex justify-between items-center animate-fade-in-down"
+          role="alert"
+        >
+          <div>
+            <strong className="font-bold">Berhasil! </strong>
+            <span className="block sm:inline">{toastMsg}</span>
+          </div>
+          <button
+            onClick={() => setToastMsg("")}
+            className="text-green-700 hover:text-green-900 font-bold text-xl px-2"
+          >
+            &times;
+          </button>
+        </div>
+      )}
       <PageHero title="Profil" />
       <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto">
