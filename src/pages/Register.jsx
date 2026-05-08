@@ -23,7 +23,6 @@ export default function Register() {
   
   const [error, setError] = useState("");
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -70,7 +69,7 @@ export default function Register() {
 
   return (
     <>
-      <PageHero title="Registrasi Keanggotaan KVI" />
+      <PageHero title="Registrasi Nasional Keanggotaan KVI" />
       <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-8 md:p-12">
           <h2 className="text-2xl font-bold mb-8 text-gray-900 text-center border-b pb-4">
