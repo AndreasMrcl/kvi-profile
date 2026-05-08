@@ -198,17 +198,17 @@ export default function Profile() {
                   <form onSubmit={handleProfileSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {/* Kolom Kiri */}
-                      <div className="p-4 bg-kvi-50 border border-kvi-200 rounded-lg">
-                        <p className="text-xs font-semibold text-zinc-500 uppercase">
-                          Nomor Pendaftaran
-                        </p>
+                      <div className="space-y-4">
+                        <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Nomor Pendaftaran
+                          </label>
                         <p className="text-xl font-bold text-kvi-700 mt-1">
                           {currentUser?.registration_number
                             ? currentUser.registration_number
                             : "Belum Ada"}
                         </p>
                       </div>
-                      <div className="space-y-4">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
                             Nama Lengkap
