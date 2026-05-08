@@ -20,6 +20,7 @@ export default function Profile() {
 
   // State diperbarui dengan memasukkan data keanggotaan
   const [profileForm, setProfileForm] = useState({
+    registration_number: currentUser?.registration_number || "",
     name: currentUser?.name || "",
     email: currentUser?.email || "",
     birth_place: currentUser?.birth_place || "", // Ubah ini
