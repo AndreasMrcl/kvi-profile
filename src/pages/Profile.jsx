@@ -204,7 +204,7 @@ export default function Profile() {
                           <label className="block text-sm font-medium text-gray-700 mb-1">
                             Nomor Pendaftaran
                           </label>
-                          <p className="text-xl font-bold text-kvi-700 mt-1">
+                          <p className="text-lg font-bold text-kvi-700 mt-1 px-3 py-2">
                             {profileForm?.registration_number
                               ? String(
                                   profileForm.registration_number,
