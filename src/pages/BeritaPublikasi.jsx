@@ -2,11 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { berita, publikasi, acara, sivet } from "../data/siteData";
 import PageHero from "../components/PageHero";
-import UnderConstruction from "../components/UnderConstruction";
-
-export default function BeritaPublikasi() {
-  return <UnderConstruction title="Berita & Publikasi" />;
-}
 
 const KAT_COLOR = {
   Pengumuman: { pill: "bg-kvi-50 text-kvi-600", border: "border-kvi-200" },
@@ -41,7 +36,7 @@ const TIPE_ICON = {
 function FeaturedArticle({ item }) {
   const c = KAT_COLOR[item.kategori] || {};
   return (
-    <div className="grid sm:grid-cols-2 rounded-2xl overflow-hidden bg-white border border-zinc-100 shadow-card mb-10 reveal-item">
+    <div className="grid sm:grid-cols-2 rounded-2xl overflow-hidden bg-white border border-zinc-100 shadow-card mb-10">
       <div className="relative overflow-hidden min-h-[280px]">
         <img
           src={item.gambar}
@@ -101,7 +96,7 @@ function NewsCard({ item, delay = 0 }) {
   const c = KAT_COLOR[item.kategori] || {};
   return (
     <article
-      className="group bg-white rounded-xl overflow-hidden border border-zinc-100 shadow-soft hover:shadow-card hover:-translate-y-1 hover:border-kvi-200 transition-all duration-300 reveal-item flex flex-col"
+      className="group bg-white rounded-xl overflow-hidden border border-zinc-100 shadow-soft hover:shadow-card hover:-translate-y-1 hover:border-kvi-200 transition-all duration-300 flex flex-col"
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div className="aspect-[16/10] overflow-hidden bg-zinc-100">
@@ -155,7 +150,7 @@ function PublikasiCard({ item, delay = 0 }) {
   const icon = TIPE_ICON[item.tipe] || TIPE_ICON.Panduan;
   return (
     <div
-      className="bg-white rounded-2xl p-6 border border-zinc-100 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-300 reveal-item flex flex-col gap-4"
+      className="bg-white rounded-2xl p-6 border border-zinc-100 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-300 flex flex-col gap-4"
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div className="flex items-start gap-4">
@@ -518,9 +513,9 @@ function PublikasiTab() {
           </div>
           <div className="hidden md:flex gap-8 flex-shrink-0">
             {[
-              ["12+", "Dokumen"],
-              ["3", "Kategori"],
-              ["2024", "Edisi Terbaru"],
+              ["0", "Dokumen"],
+              ["0", "Kategori"],
+              ["0", "Edisi Terbaru"],
             ].map(([n, l]) => (
               <div key={l} className="text-center">
                 <div className="font-display text-2xl font-extrabold text-kvi-300">
@@ -587,44 +582,7 @@ function PublikasiTab() {
 }
 
 /* ── Page ── */
-// export default function BeritaPublikasi() {
-//   const [activeTab, setActiveTab] = useState("berita");
-
-//   return (
-//     <>
-//       <PageHero
-//         breadcrumbs={[
-//           { label: "Beranda", path: "/" },
-//           { label: "Berita & Publikasi" },
-//         ]}
-//         title="BERITA & PUBLIKASI"
-//         subtitle="Informasi terkini, pengumuman resmi, dan dokumen publikasi dari Konsil Veteriner Indonesia."
-//         tabs={[
-//           { key: "berita", label: "Berita & Pengumuman" },
-//           { key: "publikasi", label: "Publikasi & Dokumen" },
-//         ]}
-//         activeTab={activeTab}
-//         onTabChange={setActiveTab}
-//       />
-//       <div
-//         className={`border-t-4 border-kvi-500 ${activeTab === "berita" ? "bg-paper-50" : "bg-white"}`}
-//       >
-//         <div className="max-w-[1320px] mx-auto px-6 md:px-8 py-12">
-//           <div className="grid lg:grid-cols-[1fr_320px] gap-10 items-start">
-//             <div>
-//               {activeTab === "berita" ? <BeritaTab /> : <PublikasiTab />}
-//             </div>
-//             <div className="sticky top-24">
-//               <EventsSidebar />
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
-
-function BeritaPublikasiContent() {
+export default function BeritaPublikasi() {
   const [activeTab, setActiveTab] = useState("berita");
 
   return (
@@ -660,3 +618,40 @@ function BeritaPublikasiContent() {
     </>
   );
 }
+
+// function BeritaPublikasiContent() {
+//   const [activeTab, setActiveTab] = useState("berita");
+
+//   return (
+//     <>
+//       <PageHero
+//         breadcrumbs={[
+//           { label: "Beranda", path: "/" },
+//           { label: "Berita & Publikasi" },
+//         ]}
+//         title="BERITA & PUBLIKASI"
+//         subtitle="Informasi terkini, pengumuman resmi, dan dokumen publikasi dari Konsil Veteriner Indonesia."
+//         tabs={[
+//           { key: "berita", label: "Berita & Pengumuman" },
+//           { key: "publikasi", label: "Publikasi & Dokumen" },
+//         ]}
+//         activeTab={activeTab}
+//         onTabChange={setActiveTab}
+//       />
+//       <div
+//         className={`border-t-4 border-kvi-500 ${activeTab === "berita" ? "bg-paper-50" : "bg-white"}`}
+//       >
+//         <div className="max-w-[1320px] mx-auto px-6 md:px-8 py-12">
+//           <div className="grid lg:grid-cols-[1fr_320px] gap-10 items-start">
+//             <div>
+//               {activeTab === "berita" ? <BeritaTab /> : <PublikasiTab />}
+//             </div>
+//             <div className="sticky top-24">
+//               <EventsSidebar />
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// }

@@ -4,11 +4,10 @@ import {
   about,
   fungsiList,
   membership,
-  pengurus,
-  pengawas,
 } from "../data/siteData";
 import profileImage from "../assets/optimized/profile.webp";
 import PageHero from "../components/PageHero";
+import Organization from "../components/Organization";
 
 const ASOSIASI = ["AFKHI", "APSTVI", "PDHI", "PAVETI", "PARAVETINDO"];
 
@@ -229,71 +228,6 @@ function MembershipSection() {
   );
 }
 
-/* ── Organization section ── */
-function OrgSection() {
-  const [tab, setTab] = useState("pengurus");
-  const people = tab === "pengurus" ? pengurus : pengawas;
-
-  return (
-    <section id="section-org" className="bg-paper-100 py-20">
-      <div className="max-w-[1320px] mx-auto px-6 md:px-8">
-        <div className="text-center mb-12">
-          <span className="text-[10px] uppercase tracking-widest text-kvi-500 font-bold font-body reveal-item">
-            Struktur Organisasi
-          </span>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-navy-800 mt-3 reveal-item">
-            Pengurus &amp; Pengawas KVI
-          </h2>
-          <div className="h-1 w-16 bg-kvi-500 rounded mt-4 mx-auto reveal-item" />
-          {/* Tab toggle */}
-          <div className="inline-flex bg-white rounded-xl p-1 border border-paper-200 gap-1 mt-6 reveal-item">
-            {["pengurus", "pengawas"].map((t) => (
-              <button
-                key={t}
-                onClick={() => setTab(t)}
-                className={`px-6 py-2 rounded-lg text-sm font-bold capitalize transition-all
-                  ${tab === t ? "bg-navy-800 text-white" : "text-zinc-500 hover:text-zinc-700"}`}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div
-          className={`grid gap-4 ${people.length <= 4 ? "grid-cols-2 md:grid-cols-4" : "grid-cols-2 md:grid-cols-3 lg:grid-cols-6"}`}
-        >
-          {people.map((p, i) => (
-            <div
-              key={i}
-              className={`rounded-xl p-5 text-center reveal-item transition-all duration-300 hover:-translate-y-1 border shadow-soft hover:shadow-card
-                ${i === 0 ? "bg-kvi-600 text-white border-kvi-600" : "bg-white text-navy-800 border-zinc-100"}`}
-              style={{ transitionDelay: `${i * 80}ms` }}
-            >
-              <div
-                className={`w-14 h-14 rounded-full mx-auto mb-3 flex items-center justify-center font-display font-bold text-lg
-                ${i === 0 ? "bg-gold-400 text-kvi-900" : "bg-kvi-50 text-kvi-600"}`}
-              >
-                {p.inisial}
-              </div>
-              <p
-                className={`font-display font-semibold text-sm leading-snug ${i === 0 ? "text-white" : "text-navy-800"}`}
-              >
-                {p.nama}
-              </p>
-              <p
-                className={`text-xs mt-1 font-body ${i === 0 ? "text-gold-300" : "text-zinc-500"}`}
-              >
-                {p.jabatan}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ── Page ── */
 export default function TentangKami() {
   const TABS = [
@@ -325,7 +259,7 @@ export default function TentangKami() {
         <ProfilSection />
         <FungsiSection />
         <MembershipSection />
-        <OrgSection />
+        <Organization />
       </div>
     </>
   );

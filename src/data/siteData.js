@@ -1,5 +1,6 @@
 import hero1 from '../assets/hero_1.jpeg';
 import hero2 from '../assets/hero_2.jpeg';
+import gambarRapat from "../assets/rapat-pleno.jpeg";
 
 const slugify = (value = '') =>
   value
@@ -41,11 +42,6 @@ export const heroSlides = [
   },
 ];
 
-export const heroServices = [
-  { number: '1', title: 'REGISTRASI & LISENSI',    subtitle: 'Proses STRV / SIP',     path: '/registrasi', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
-  { number: '2', title: 'KODE ETIK DOKTER HEWAN',  subtitle: 'Standards of Conduct',  path: '/etika',      icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' },
-  { number: '3', title: 'REGULASI & KEBIJAKAN',    subtitle: 'Official Documents',    path: '/berita',     icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
-];
 
 /* ─── HOME STATS ─── */
 export const homeStats = [
@@ -143,44 +139,63 @@ const beritaTemplate = {
   ],
 };
 
-const beritaRaw = [
-  { id: 1, tanggal: '12 November 2024', kategori: 'Pengumuman', featured: true,  judul: 'Uji Kompetensi Gelombang II Tahun 2024', ringkasan: 'Uji Kompetensi Gelombang II tahun 2024 akan dilaksanakan pada 15 Desember 2024. Simak jadwal dan persyaratannya.', gambar: 'https://images.unsplash.com/photo-1534644107580-3a4dbd494a95?w=800&auto=format&fit=crop&q=60' },
-  { id: 2, tanggal: '28 Oktober 2024',  kategori: 'Kegiatan',   featured: false, judul: 'Seminar Etika Veteriner Nasional 2024',     ringkasan: 'Seminar nasional bersama KVI dan PDHI membahas etika veteriner serta penegakan kode etik profesi dokter hewan.', gambar: 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=800&auto=format&fit=crop&q=60' },
-  { id: 3, tanggal: '10 Oktober 2024',  kategori: 'Regulasi',   featured: false, judul: 'Kebijakan Baru Registrasi STRV 2024',        ringkasan: 'Informasi terbaru terkait perubahan kebijakan dan tata cara Registrasi Surat Tanda Registrasi Veteriner (STRV).', gambar: 'https://images.unsplash.com/photo-1550418290-a8d86ad674a6?w=800&auto=format&fit=crop&q=60' },
-  { id: 4, tanggal: '02 Oktober 2024',  kategori: 'Kegiatan',   featured: false, judul: 'Workshop Standar Kompetensi Dokter Hewan',    ringkasan: 'KVI menyelenggarakan workshop nasional penyusunan standar kompetensi dokter hewan bersama universitas veteriner se-Indonesia.', gambar: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&auto=format&fit=crop&q=60' },
-  { id: 5, tanggal: '20 September 2024',kategori: 'Pengumuman', featured: false, judul: 'Pendaftaran Anggota KVI Periode 2024–2025',   ringkasan: 'Pendaftaran keanggotaan KVI kini dibuka untuk periode 2024–2025. Segera daftarkan diri Anda melalui portal SIVET.', gambar: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=60' },
-  { id: 6, tanggal: '05 September 2024',kategori: 'Regulasi',   featured: false, judul: 'Peraturan Baru Praktik Kedokteran Hewan',     ringkasan: 'KVI merilis peraturan baru tentang standar praktik kedokteran hewan di fasilitas pelayanan umum dan swasta.', gambar: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&auto=format&fit=crop&q=60' },
-  { id: 7, tanggal: '18 Agustus 2024',  kategori: 'Kegiatan',   featured: false, judul: 'Pelatihan Pengawasan Karantina Hewan',        ringkasan: 'Pelatihan intensif bagi dokter hewan karantina dalam rangka peningkatan kapasitas pengawasan lalu lintas hewan antar wilayah.', gambar: 'https://images.unsplash.com/photo-1488998527040-85054a85150e?w=800&auto=format&fit=crop&q=60' },
-  { id: 8, tanggal: '01 Agustus 2024',  kategori: 'Pengumuman', featured: false, judul: 'Hasil Uji Kompetensi Gelombang I 2024',       ringkasan: 'Pengumuman resmi hasil Uji Kompetensi Veteriner Gelombang I tahun 2024. Selamat kepada seluruh peserta yang dinyatakan lulus.', gambar: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800&auto=format&fit=crop&q=60' },
-];
+export const berita = [
+  {
+    id: 1,
+    slug: 'rapat-pleno-perdana-pkvi-2026',
+    tanggal: '21 Februari 2026',
+    kategori: 'Kegiatan',
+    featured: false,
+    judul: 'Rapat Pleno Perdana Perkumpulan Konsil Veteriner Indonesia (PKVI) Tegaskan Langkah Awal Penguatan Sistem Kedokteran Hewan Nasional',
+    ringkasan: 'Perkumpulan Konsil Veteriner Indonesia (PKVI) telah menyelenggarakan Rapat Pleno Pertama sebagai tonggak awal dalam penguatan sistem pengaturan profesi kedokteran hewan di Indonesia.',
+    gambar: gambarRapat,
+    penulis: 'Humas PKVI',
+    baca: '3 menit baca',
+    subjudul: 'Perkumpulan Konsil Veteriner Indonesia (PKVI) telah menyelenggarakan Rapat Pleno Pertama sebagai tonggak awal dalam penguatan sistem pengaturan profesi kedokteran hewan di Indonesia.',
+    tags: ['PKVI', 'Rapat Pleno', 'One Health', 'Veteriner'],
+    
+    // PERBAIKAN INFOBOX: Menggunakan format object {label, val}
+    infoBox: [
+      { label: "Tanggal", val: "21 Februari 2026" },
+      { label: "Agenda Utama", val: "Fungsi Konsil & Standar Praktik" },
+      { label: "Fokus Acara", val: "Pendekatan One Health" }
+    ],
 
-export const berita = beritaRaw.map((item) => ({
-  ...item,
-  slug: slugify(item.judul),
-  penulis: beritaTemplate.penulis,
-  baca: beritaTemplate.baca,
-  subjudul: item.ringkasan,
-  konten: [...beritaTemplate.konten],
-  tags: [...beritaTemplate.tags],
-  infoBox: [...beritaTemplate.infoBox],
-}));
+    // PERBAIKAN KONTEN: Menggunakan format object {tipe, isi}
+    konten: [
+      { 
+        tipe: "p", 
+        isi: "Jakarta — Perkumpulan Konsil Veteriner Indonesia (PKVI) telah menyelenggarakan Rapat Pleno Pertama pada tanggal 21 Februari 2026 sebagai tonggak awal dalam penguatan sistem pengaturan profesi kedokteran hewan di Indonesia. Rapat ini menjadi momentum strategis untuk menetapkan arah kebijakan organisasi, memperkuat struktur kelembagaan, serta menyelaraskan peran PKVI sebagai embrio Veterinary Statutory Body (VSB) di Indonesia." 
+      },
+      { 
+        tipe: "p", 
+        isi: "Dalam rapat tersebut, dibahas sejumlah agenda penting, antara lain penegasan fungsi dan kewenangan konsil dalam registrasi, standardisasi kompetensi, serta pengawasan praktik dokter hewan. Selain itu, rapat juga menyoroti pentingnya harmonisasi regulasi nasional dengan standar internasional, khususnya yang direkomendasikan oleh organisasi kesehatan hewan dunia." 
+      },
+      { 
+        tipe: "p", 
+        isi: "PKVI menegaskan komitmennya untuk membangun sistem kedokteran hewan yang profesional, akuntabel, dan berorientasi pada pendekatan One Health. Melalui langkah ini, diharapkan kualitas layanan kedokteran hewan di Indonesia dapat semakin meningkat serta mampu menjawab tantangan global di bidang kesehatan hewan, kesehatan masyarakat, dan lingkungan." 
+      },
+      { 
+        tipe: "p", 
+        isi: "Rapat pleno ini sekaligus menjadi awal dari serangkaian langkah strategis PKVI dalam mendorong terbentuknya kerangka regulasi yang lebih komprehensif, termasuk penguatan dasar hukum bagi praktik dan pendidikan kedokteran hewan di Indonesia." 
+      }
+    ]
+  }
+];
 
 /* ─── PUBLIKASI ─── */
 export const publikasi = [
-  { id: 1, tipe: 'Peraturan', kode: 'PER-KVI-2024-01', judul: 'Peraturan Konsil tentang Standar Pendidikan Kedokteran Hewan', tahun: '2024', halaman: '42 hal', ukuran: '3.2 MB', desc: 'Standar nasional pendidikan dan kurikulum program studi kedokteran hewan di seluruh Indonesia.' },
-  { id: 2, tipe: 'Kebijakan', kode: 'KEB-KVI-2024-03', judul: 'Kebijakan Registrasi dan Lisensi Dokter Hewan Asing',         tahun: '2024', halaman: '18 hal', ukuran: '1.1 MB', desc: 'Tata cara dan persyaratan bagi dokter hewan warga negara asing yang ingin berpraktik di Indonesia.' },
-  { id: 3, tipe: 'Panduan',   kode: 'PAN-KVI-2024-02', judul: 'Panduan Etika dan Kode Etik Profesi Dokter Hewan',            tahun: '2024', halaman: '56 hal', ukuran: '4.7 MB', desc: 'Pedoman lengkap etika profesi, kode perilaku, dan tata tertib yang wajib dipatuhi dokter hewan terdaftar.' },
-  { id: 4, tipe: 'Peraturan', kode: 'PER-KVI-2023-05', judul: 'Peraturan tentang Penegakan Disiplin Profesi',                tahun: '2023', halaman: '28 hal', ukuran: '2.0 MB', desc: 'Mekanisme dan prosedur penegakan disiplin terhadap dokter hewan yang melanggar ketentuan.' },
-  { id: 5, tipe: 'Kebijakan', kode: 'KEB-KVI-2023-01', judul: 'Kebijakan Pengembangan Profesi Berkelanjutan (P2B)',          tahun: '2023', halaman: '24 hal', ukuran: '1.8 MB', desc: 'Persyaratan dan panduan program pengembangan profesi berkelanjutan bagi dokter hewan aktif.' },
-  { id: 6, tipe: 'Panduan',   kode: 'PAN-KVI-2023-04', judul: 'Panduan Pelayanan Kedokteran Hewan di Fasilitas Publik',     tahun: '2023', halaman: '34 hal', ukuran: '2.5 MB', desc: 'Standar operasional pelayanan kedokteran hewan di puskeswan, klinik, rumah sakit hewan, dan balai karantina.' },
+  // { id: 1, tipe: 'Peraturan', kode: 'PER-KVI-2024-01', judul: 'Peraturan Konsil tentang Standar Pendidikan Kedokteran Hewan', tahun: '2024', halaman: '42 hal', ukuran: '3.2 MB', desc: 'Standar nasional pendidikan dan kurikulum program studi kedokteran hewan di seluruh Indonesia.' },
+  // { id: 2, tipe: 'Kebijakan', kode: 'KEB-KVI-2024-03', judul: 'Kebijakan Registrasi dan Lisensi Dokter Hewan Asing',         tahun: '2024', halaman: '18 hal', ukuran: '1.1 MB', desc: 'Tata cara dan persyaratan bagi dokter hewan warga negara asing yang ingin berpraktik di Indonesia.' },
+  // { id: 3, tipe: 'Panduan',   kode: 'PAN-KVI-2024-02', judul: 'Panduan Etika dan Kode Etik Profesi Dokter Hewan',            tahun: '2024', halaman: '56 hal', ukuran: '4.7 MB', desc: 'Pedoman lengkap etika profesi, kode perilaku, dan tata tertib yang wajib dipatuhi dokter hewan terdaftar.' },
+  // { id: 4, tipe: 'Peraturan', kode: 'PER-KVI-2023-05', judul: 'Peraturan tentang Penegakan Disiplin Profesi',                tahun: '2023', halaman: '28 hal', ukuran: '2.0 MB', desc: 'Mekanisme dan prosedur penegakan disiplin terhadap dokter hewan yang melanggar ketentuan.' },
+  // { id: 5, tipe: 'Kebijakan', kode: 'KEB-KVI-2023-01', judul: 'Kebijakan Pengembangan Profesi Berkelanjutan (P2B)',          tahun: '2023', halaman: '24 hal', ukuran: '1.8 MB', desc: 'Persyaratan dan panduan program pengembangan profesi berkelanjutan bagi dokter hewan aktif.' },
+  // { id: 6, tipe: 'Panduan',   kode: 'PAN-KVI-2023-04', judul: 'Panduan Pelayanan Kedokteran Hewan di Fasilitas Publik',     tahun: '2023', halaman: '34 hal', ukuran: '2.5 MB', desc: 'Standar operasional pelayanan kedokteran hewan di puskeswan, klinik, rumah sakit hewan, dan balai karantina.' },
 ];
 
 /* ─── ACARA ─── */
 export const acara = [
-  { tanggal: '05', bulan: 'Des', tahun: '2024', judul: 'Rapat Umum Anggota KVI',       lokasi: 'Jakarta Selatan' },
-  { tanggal: '15', bulan: 'Des', tahun: '2024', judul: 'Uji Kompetensi Gelombang II',  lokasi: 'Online & Offline' },
-  { tanggal: '22', bulan: 'Jan', tahun: '2025', judul: 'Workshop Standar Pelayanan',   lokasi: 'Bandung' },
-  { tanggal: '10', bulan: 'Feb', tahun: '2025', judul: 'Konferensi Veteriner Nasional',lokasi: 'Surabaya' },
+  { tanggal: '08', bulan: 'Mei', tahun: '2026', judul: 'Peluncuran Resmi',       lokasi: 'Jakarta Selatan' },
 ];
 
 /* ─── SIVET ─── */

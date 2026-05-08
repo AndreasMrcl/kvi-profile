@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   heroSlides,
-  heroServices,
   berita,
   acara,
   homeFaq,
 } from "../data/siteData";
+import HeroDivisiCards from "../components/HeroDivisiCards";
 
 const AUTOPLAY_MS = 6000;
 const resolveTo = (path, anchor) => (anchor ? `${path}#${anchor}` : path);
@@ -128,47 +128,7 @@ function HeroSlider() {
       {/* Service cards */}
       <div className="relative z-20 -mt-14 md:-mt-20">
         <div className="max-w-[1320px] mx-auto px-6 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
-            {heroServices.map((s, i) => (
-              <Link
-                key={s.number}
-                to={resolveTo(s.path, "")}
-                className="group relative bg-white rounded-xl p-5 md:p-6 shadow-card border border-zinc-100 hover:border-kvi-600 hover:-translate-y-1 transition-all duration-300 reveal-item"
-                style={{ transitionDelay: `${i * 120}ms` }}
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-kvi-50 flex items-center justify-center flex-shrink-0 group-hover:bg-kvi-600 transition-colors">
-                    <svg
-                      className="w-6 h-6 md:w-7 md:h-7 text-kvi-600 group-hover:text-white transition-colors"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={1.6}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d={s.icon}
-                      />
-                    </svg>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-kvi-600 font-display font-bold text-lg leading-none">
-                        {s.number}.
-                      </span>
-                      <h3 className="font-display font-bold text-navy-800 text-base md:text-[17px] leading-tight">
-                        {s.title}
-                      </h3>
-                    </div>
-                    <p className="text-zinc-500 text-xs md:text-sm mt-1.5 font-body">
-                      {s.subtitle}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <HeroDivisiCards />
         </div>
       </div>
     </section>
