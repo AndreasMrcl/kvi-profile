@@ -200,15 +200,17 @@ export default function Profile() {
                       {/* Kolom Kiri */}
                       <div className="space-y-4">
                         <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Nomor Pendaftaran
                           </label>
-                        <p className="text-xl font-bold text-kvi-700 mt-1">
-                          {currentUser?.registration_number
-                            ? currentUser.registration_number
-                            : "Belum Ada"}
-                        </p>
-                      </div>
+                          <p className="text-xl font-bold text-kvi-700 mt-1">
+                            {currentUser?.registration_number
+                              ? String(
+                                  currentUser.registration_number,
+                                ).padStart(5, "0")
+                              : "Belum Ada"}
+                          </p>
+                        </div>
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
                             Nama Lengkap
