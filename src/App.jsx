@@ -15,7 +15,10 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import Maintenance from "./pages/Maintenance";
 import { useReveal } from "./hooks/useReveal";
+
+const MAINTENANCE_MODE = true;
 
 function ScrollManager() {
   const location = useLocation();
@@ -40,6 +43,10 @@ function ScrollManager() {
 export default function App() {
   const location = useLocation();
   useReveal([location.pathname]);
+
+  if (MAINTENANCE_MODE) {
+    return <Maintenance />;
+  }
 
   return (
     <>
