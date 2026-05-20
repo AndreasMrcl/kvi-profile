@@ -18,7 +18,7 @@ import NotFound from "./pages/NotFound";
 import Maintenance from "./pages/Maintenance";
 import { useReveal } from "./hooks/useReveal";
 
-const MAINTENANCE_MODE = true;
+const MAINTENANCE_MODE = false;
 
 function ScrollManager() {
   const location = useLocation();
