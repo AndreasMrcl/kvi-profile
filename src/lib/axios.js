@@ -1,7 +1,9 @@
 import Axios from 'axios';
 
 const axios = Axios.create({
-    baseURL: 'https://api.konsilveteriner.com',
+    // Dev: kosong (relatif) -> ditangani proxy Vite ke 127.0.0.1:8000 (same-origin, tanpa CORS)
+    // Prod: di-set lewat .env.production ke https://api.konsilveteriner.com
+    baseURL: import.meta.env.VITE_API_BASE_URL ?? '',
     withCredentials: true,
     withXSRFToken: true, // INI KUNCI UTAMANYA UNTUK AXIOS VERSI BARU
     headers: {

@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { berita, publikasi, acara, sivet } from "../data/siteData";
+import { publikasi, sivet } from "../data/siteData";
+import { fetchArticles, FALLBACK_NEWS_IMG } from "../api/articles";
+import { fetchEvents } from "../api/events";
 import PageHero from "../components/PageHero";
+
+// Flag tampilan — set true untuk mengaktifkan kembali fitur yang disembunyikan.
+const SHOW_PUBLIKASI_TAB = false; // tab "Publikasi & Dokumen"
+const SHOW_KATEGORI_FILTER = false; // filter kategori (Semua/Pengumuman/Kegiatan/Regulasi)
 
 const KAT_COLOR = {
   Pengumuman: { pill: "bg-kvi-50 text-kvi-600", border: "border-kvi-200" },
@@ -39,7 +45,7 @@ function FeaturedArticle({ item }) {
     <div className="grid sm:grid-cols-2 rounded-2xl overflow-hidden bg-white border border-zinc-100 shadow-card mb-10">
       <div className="relative overflow-hidden min-h-[280px]">
         <img
-          src={item.gambar}
+          src={item.gambar || FALLBACK_NEWS_IMG}
           alt={item.judul}
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -101,7 +107,7 @@ function NewsCard({ item, delay = 0 }) {
     >
       <div className="aspect-[16/10] overflow-hidden bg-zinc-100">
         <img
-          src={item.gambar}
+          src={item.gambar || FALLBACK_NEWS_IMG}
           alt={item.judul}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
@@ -244,6 +250,18 @@ function PublikasiCard({ item, delay = 0 }) {
 
 /* ── Events sidebar ── */
 function EventsSidebar() {
+  const [acara, setAcara] = useState([]);
+
+  useEffect(() => {
+    let active = true;
+    fetchEvents()
+      .then((data) => active && setAcara(data))
+      .catch(() => active && setAcara([]));
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <div className="flex flex-col gap-5">
       {/* Acara */}
@@ -253,10 +271,15 @@ function EventsSidebar() {
         </h2>
         <div className="h-[3px] w-14 bg-kvi-500 rounded-full mb-5" />
         <div className="bg-white rounded-xl border border-zinc-100 shadow-soft overflow-hidden">
+          {acara.length === 0 && (
+            <div className="p-6 text-center text-zinc-400 text-xs font-semibold">
+              Belum ada acara mendatang.
+            </div>
+          )}
           {acara.map((a, i) => (
             <div
-              key={i}
-              className={`flex items-center gap-4 p-4 hover:bg-kvi-50/60 transition-colors cursor-pointer
+              key={a.id}
+              className={`flex items-center gap-4 p-4
                 ${i < acara.length - 1 ? "border-b border-zinc-100" : ""}`}
             >
               <div className="flex-shrink-0 w-14 text-center bg-kvi-50 rounded-md py-2 border border-kvi-100">
@@ -351,7 +374,20 @@ function BeritaTab() {
   const [filter, setFilter] = useState("Semua");
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
+  const [berita, setBerita] = useState([]);
+  const [loading, setLoading] = useState(true);
   const PER_PAGE = 6;
+
+  useEffect(() => {
+    let active = true;
+    fetchArticles()
+      .then((data) => active && setBerita(data))
+      .catch(() => active && setBerita([]))
+      .finally(() => active && setLoading(false));
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const filtered = berita.filter((b) => {
     const matchCat = filter === "Semua" || b.kategori === filter;
@@ -369,21 +405,25 @@ function BeritaTab() {
     <div>
       {/* Controls */}
       <div className="flex items-center justify-between flex-wrap gap-4 mb-7">
-        <div className="flex gap-2">
-          {KATEGORI.map((k) => (
-            <button
-              key={k}
-              onClick={() => {
-                setFilter(k);
-                setPage(1);
-              }}
-              className={`px-4 py-1.5 rounded-lg text-xs font-semibold border transition-all
+        {SHOW_KATEGORI_FILTER ? (
+          <div className="flex gap-2">
+            {KATEGORI.map((k) => (
+              <button
+                key={k}
+                onClick={() => {
+                  setFilter(k);
+                  setPage(1);
+                }}
+                className={`px-4 py-1.5 rounded-lg text-xs font-semibold border transition-all
                 ${filter === k ? "bg-kvi-500 border-kvi-500 text-white" : "bg-white border-zinc-200 text-zinc-600 hover:border-kvi-300"}`}
-            >
-              {k}
-            </button>
-          ))}
-        </div>
+              >
+                {k}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <span />
+        )}
         <div className="relative">
           <svg
             className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-400"
@@ -414,7 +454,11 @@ function BeritaTab() {
         <FeaturedArticle item={featured} />
       )}
 
-      {paged.length > 0 ? (
+      {loading ? (
+        <div className="text-center py-16 text-zinc-400">
+          <p className="text-sm font-semibold">Memuat berita...</p>
+        </div>
+      ) : paged.length > 0 ? (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
           {paged.map((item, i) => (
             <NewsCard key={item.id} item={item} delay={i * 60} />
@@ -585,6 +629,15 @@ function PublikasiTab() {
 export default function BeritaPublikasi() {
   const [activeTab, setActiveTab] = useState("berita");
 
+  // Tab switcher hanya tampil bila tab Publikasi diaktifkan; kalau tidak, langsung berita.
+  const tabs = SHOW_PUBLIKASI_TAB
+    ? [
+        { key: "berita", label: "Berita & Pengumuman" },
+        { key: "publikasi", label: "Publikasi & Dokumen" },
+      ]
+    : [];
+  const showPublikasi = SHOW_PUBLIKASI_TAB && activeTab === "publikasi";
+
   return (
     <>
       <PageHero
@@ -594,20 +647,17 @@ export default function BeritaPublikasi() {
         ]}
         title="BERITA & PUBLIKASI"
         subtitle="Informasi terkini, pengumuman resmi, dan dokumen publikasi dari Konsil Veteriner Indonesia."
-        tabs={[
-          { key: "berita", label: "Berita & Pengumuman" },
-          { key: "publikasi", label: "Publikasi & Dokumen" },
-        ]}
+        tabs={tabs}
         activeTab={activeTab}
         onTabChange={setActiveTab}
       />
       <div
-        className={`border-t-4 border-kvi-500 ${activeTab === "berita" ? "bg-paper-50" : "bg-white"}`}
+        className={`border-t-4 border-kvi-500 ${showPublikasi ? "bg-white" : "bg-paper-50"}`}
       >
         <div className="max-w-[1320px] mx-auto px-6 md:px-8 py-12">
           <div className="grid lg:grid-cols-[1fr_320px] gap-10 items-start">
             <div>
-              {activeTab === "berita" ? <BeritaTab /> : <PublikasiTab />}
+              {showPublikasi ? <PublikasiTab /> : <BeritaTab />}
             </div>
             <div className="sticky top-24">
               <EventsSidebar />

@@ -1,9 +1,27 @@
-import { useState } from 'react';
-import { berita, acara, sivet } from '../data/siteData';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { sivet } from '../data/siteData';
+import { fetchArticles, FALLBACK_NEWS_IMG } from '../api/articles';
+import { fetchEvents } from '../api/events';
 
 export default function NewsEvents() {
-  const [page, setPage] = useState(0);
-  const items = berita;
+  const [articles, setArticles] = useState([]);
+  const [acara, setAcara] = useState([]);
+
+  useEffect(() => {
+    let active = true;
+    fetchArticles()
+      .then((data) => active && setArticles(data))
+      .catch(() => active && setArticles([]));
+    fetchEvents()
+      .then((data) => active && setAcara(data))
+      .catch(() => active && setAcara([]));
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const items = articles.slice(0, 6);
 
   return (
     <section id="berita" className="py-16 md:py-20 bg-paper-50">
@@ -18,68 +36,63 @@ export default function NewsEvents() {
                 </h2>
                 <div className="h-1 w-16 bg-kvi-500 rounded mt-2" />
               </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setPage((p) => Math.max(0, p - 1))}
-                  className="w-9 h-9 rounded-md border border-zinc-200 text-zinc-500 hover:bg-kvi-50 hover:text-kvi-600 hover:border-kvi-200 transition"
-                  aria-label="Previous"
-                >
-                  <svg className="w-4 h-4 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => setPage((p) => p + 1)}
-                  className="w-9 h-9 rounded-md bg-kvi-500 text-white hover:bg-kvi-600 transition"
-                  aria-label="Next"
-                >
-                  <svg className="w-4 h-4 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
+              <Link
+                to="/berita"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-zinc-200 text-zinc-600 hover:bg-kvi-50 hover:text-kvi-600 hover:border-kvi-200 transition text-xs font-semibold"
+              >
+                Lihat Semua
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
             </div>
 
-            <div className="grid sm:grid-cols-3 gap-4 md:gap-5">
-              {items.map((item, i) => (
-                <article
-                  key={i}
-                  className="group bg-white rounded-xl overflow-hidden border border-zinc-100 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-300 reveal-item"
-                  style={{ transitionDelay: `${i * 100}ms` }}
-                >
-                  <div className="aspect-[4/3] overflow-hidden bg-zinc-100">
-                    <img
-                      src={item.gambar}
-                      alt={item.judul}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest mb-2">
-                      <span className="text-kvi-600 font-semibold">{item.kategori}</span>
-                      <span className="text-zinc-300">·</span>
-                      <span className="text-zinc-400">{item.tanggal}</span>
+            {items.length === 0 ? (
+              <div className="bg-white rounded-xl border border-zinc-100 shadow-soft py-16 text-center text-zinc-400 text-sm font-semibold">
+                Belum ada berita.
+              </div>
+            ) : (
+              <div className="grid sm:grid-cols-3 gap-4 md:gap-5">
+                {items.map((item, i) => (
+                  <article
+                    key={item.id}
+                    className="group bg-white rounded-xl overflow-hidden border border-zinc-100 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-300 reveal-item"
+                    style={{ transitionDelay: `${i * 100}ms` }}
+                  >
+                    <div className="aspect-[4/3] overflow-hidden bg-zinc-100">
+                      <img
+                        src={item.gambar || FALLBACK_NEWS_IMG}
+                        alt={item.judul}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
                     </div>
-                    <h3 className="font-display font-bold text-navy-800 text-base leading-snug mb-2 line-clamp-2">
-                      {item.judul}
-                    </h3>
-                    <p className="text-zinc-500 text-xs leading-relaxed mb-3 line-clamp-2">
-                      {item.ringkasan}
-                    </p>
-                    <a
-                      href="#"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-kvi-500 hover:bg-kvi-600 text-white text-xs font-semibold rounded-md transition-colors"
-                    >
-                      Read More
-                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
+                    <div className="p-4">
+                      <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest mb-2">
+                        <span className="text-kvi-600 font-semibold">{item.kategori}</span>
+                        <span className="text-zinc-300">·</span>
+                        <span className="text-zinc-400">{item.tanggal}</span>
+                      </div>
+                      <h3 className="font-display font-bold text-navy-800 text-base leading-snug mb-2 line-clamp-2">
+                        {item.judul}
+                      </h3>
+                      <p className="text-zinc-500 text-xs leading-relaxed mb-3 line-clamp-2">
+                        {item.ringkasan}
+                      </p>
+                      <Link
+                        to={`/berita/${item.slug}`}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-kvi-500 hover:bg-kvi-600 text-white text-xs font-semibold rounded-md transition-colors"
+                      >
+                        Baca
+                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Events + SIVET */}
@@ -91,11 +104,15 @@ export default function NewsEvents() {
               <div className="h-1 w-16 bg-kvi-500 rounded mt-2 mb-6" />
 
               <div className="bg-white rounded-xl border border-zinc-100 shadow-soft overflow-hidden">
+                {acara.length === 0 && (
+                  <div className="p-6 text-center text-zinc-400 text-xs font-semibold">
+                    Belum ada acara mendatang.
+                  </div>
+                )}
                 {acara.map((a, i) => (
-                  <a
-                    key={i}
-                    href="#"
-                    className={`flex items-center gap-4 p-4 hover:bg-kvi-50/60 transition-colors
+                  <div
+                    key={a.id}
+                    className={`flex items-center gap-4 p-4
                       ${i < acara.length - 1 ? 'border-b border-zinc-100' : ''}`}
                   >
                     <div className="flex-shrink-0 w-14 text-center bg-kvi-50 rounded-md py-2 border border-kvi-100">
@@ -118,7 +135,7 @@ export default function NewsEvents() {
                         {a.lokasi}
                       </div>
                     </div>
-                  </a>
+                  </div>
                 ))}
               </div>
             </div>

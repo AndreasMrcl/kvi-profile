@@ -2,19 +2,31 @@ import React, { useState, useEffect, useRef } from "react";
 
 /* ----------  DATA  ---------- */
 const ORG_DATA = {
+  pembina: [
+    { inisial: 'AS', nama: 'Dr. drh. Agung Suganda, M.Si.', jabatan: 'Ketua' },
+  ],
   pengurus: [
-    { inisial: 'TB', nama: 'DRH. Teguh Budipitojo, MP, Ph.D.', jabatan: 'Ketua' },
-    { inisial: 'MM', nama: 'DR. H. M. Munawaroh',              jabatan: 'Wakil Ketua I' },
-    { inisial: 'SY', nama: 'Syafrison',                        jabatan: 'Wakil Ketua II' },
-    { inisial: 'AW', nama: 'Andi Wijanarko',                   jabatan: 'Sekretaris' },
-    { inisial: 'SK', nama: 'DRH. Siti Komariah',               jabatan: 'Wakil Sekretaris' },
-    { inisial: 'HE', nama: 'Henny Endah A.',                   jabatan: 'Bendahara' },
+    { inisial: 'TB', nama: 'Prof. drh. Teguh Budipitojo, MP., Ph.D.', jabatan: 'Ketua' },
+    { inisial: 'MM', nama: 'Dr. drh. M. Munawaroh, M.M',             jabatan: 'Wakil Ketua 1' },
+    { inisial: 'SI', nama: 'drh. Safryson Idris, M.Si',              jabatan: 'Wakil Ketua 2' },
+    { inisial: 'AW', nama: 'drh. Andi Wijanarko, M.M',               jabatan: 'Sekretaris' },
+    { inisial: 'SK', nama: 'drh. Siti Komariah',                     jabatan: 'Wakil Sekretaris' },
+    { inisial: 'HE', nama: 'drh. Henny Endah Anggraeni, M.Sc.',      jabatan: 'Bendahara' },
   ],
   pengawas: [
-    { inisial: 'EN', nama: 'Eko Kusumo Nugroho, BSc, MBA', jabatan: 'Ketua Pengawas' },
-    { inisial: 'TF', nama: 'Teuku Reza Ferasyi',           jabatan: 'Anggota Pengawas' },
-    { inisial: 'SS', nama: 'Susilo',                       jabatan: 'Anggota Pengawas' },
-    { inisial: 'MM', nama: 'DRH. Martha Mangapulina',      jabatan: 'Anggota Pengawas' },
+    { inisial: 'EN', nama: 'Eko Kusumo Nugroho, MBA',                              jabatan: 'Ketua' },
+    { inisial: 'TF', nama: 'drh. Teuku Reza Ferasyi, M.Sc., Ph.D',                 jabatan: 'Anggota 1' },
+    { inisial: 'SU', nama: 'Susilo, S.T.P, M.Si.',                                 jabatan: 'Anggota 2' },
+    { inisial: 'WA', nama: 'Wijayati Andadari, SE',                                jabatan: 'Anggota 3' },
+    { inisial: 'MM', nama: 'Kol. Kes. (Purn) drh. Martha Mangapulina, S.H., M.H.', jabatan: 'Anggota 4' },
+  ],
+  tugasPembina: [
+    'Menetapkan Arah Strategis Jangka Panjang KVI.',
+    'Memberikan Pertimbangan atas Kebijakan Strategis Pengurus.',
+    'Menjaga Independensi dan Integritas KVI.',
+    'Menjadi Penjaga Nilai dan Etika Organisasi.',
+    'Memberikan Pertimbangan atas Hubungan Kelembagaan Nasional.',
+    'Menjadi Mediator Apabila Terjadi Perselisihan Internal.',
   ],
   tugasPengurus: [
     'Memimpin penyelenggaraan perkumpulan.',
@@ -45,6 +57,10 @@ const ORG_DATA = {
         'Keuangan dan anggaran',
         'Tanggung jawab administratif lainnya',
       ],
+      pic: {
+        pengurus: ['drh. Andi Wijanarko, M.M.', 'Sindu Wicaksono'],
+        pengawas: ['drh. Teuku Reza Ferasyi, M.Sc., Ph.D'],
+      },
     },
     {
       key: 'pendidikan',
@@ -59,6 +75,15 @@ const ORG_DATA = {
         'Berkoordinasi dengan tim UKMPPDH dalam mengembangkan ujian kompetensi nasional untuk semua lulusan kedokteran hewan.',
         'Bekerjasama dengan PTKH dalam mengembangkan pendidikan spesialis.',
       ],
+      pic: {
+        pengurus: [
+          'Prof. drh. Bambang Pontjo, Ph.D.',
+          'Prof. Dr. Fedik Abdul Rantam',
+          'Prof. Dr. drh. Widagdo Sri Nugroho, MP',
+          'drh. Henny Endah Anggraeni, M.Sc.',
+        ],
+        pengawas: ['drh. Teuku Reza Ferasyi, M.Sc., Ph.D', 'Wijayati Andadari, SE'],
+      },
     },
     {
       key: 'pembinaan',
@@ -71,6 +96,10 @@ const ORG_DATA = {
         'Menetapkan standar kualifikasi pelatihan lanjut kedokteran hewan.',
         'Memfasilitasi pengembangan profesi melalui konferensi akademis, seminar, program pelatihan, presentasi karya akademis, dan kursus pascasarjana.',
       ],
+      pic: {
+        pengurus: ['drh. Safryson Idris, M.Si', 'drh. Suli Teruli Sitepu', 'Hendri Pramata'],
+        pengawas: ['drh. Suhartono, MM., M.Vet', 'Maman Sukirman, A.Md., SP'],
+      },
     },
     {
       key: 'profesi',
@@ -84,6 +113,10 @@ const ORG_DATA = {
         'Mengevaluasi penerapan standar tata laksana kerja profesi kedokteran hewan.',
         'Memberikan dukungan teknis bagi praktisi kedokteran hewan agar menjadi spesialis dalam disiplin ilmu tertentu.',
       ],
+      pic: {
+        pengurus: ['drh. Siti Komariah', 'drh. Baiq Yunita Arisandi, MAP.', 'Mochamad Nandan Iskandar, A.Md.'],
+        pengawas: ['drh. Suhartono, MM., M.Vet', 'Sri Wahyuni'],
+      },
     },
     {
       key: 'etik',
@@ -96,6 +129,10 @@ const ORG_DATA = {
         'Berperan serta dalam mempromosikan etika dalam profesi kedokteran hewan, serta menjunjung tinggi keadilan bagi dokter hewan dan pemilik hewan atau pengguna jasa ketika pengaduan diajukan terhadap praktisi profesional.',
         'Berinteraksi dengan badan-badan internasional veteriner lainnya, mengenai isu-isu etik kedokteran hewan.',
       ],
+      pic: {
+        pengurus: ['Dr. drh. M. Munawaroh, M.M.', 'drh. Sylvia Maharani', 'Bram Sumantri, A.Md.'],
+        pengawas: ['Kol. Kes. (Purn) drh. Martha Mangapulina, S.H., M.H.', 'Susilo, S.T.P, M.Si'],
+      },
       sistem: {
         title: 'Sistem Disiplin PKVI mencakup',
         items: [
@@ -114,14 +151,23 @@ const ORG_DATA = {
 
 /* ----------  PEOPLE GRID  ---------- */
 function PeopleGrid() {
-  const [tab, setTab] = useState('pengurus');
-  const people = tab === 'pengurus' ? ORG_DATA.pengurus : ORG_DATA.pengawas;
+  const [tab, setTab] = useState('pembina');
+  const people = ORG_DATA[tab];
+
+  const gridClass =
+    people.length === 1
+      ? 'grid-cols-1 max-w-xs mx-auto'
+      : people.length <= 4
+        ? 'grid-cols-2 md:grid-cols-4'
+        : people.length === 5
+          ? 'grid-cols-2 md:grid-cols-5'
+          : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6';
 
   return (
     <div>
       <div className="flex justify-center mb-10">
         <div className="inline-flex bg-white rounded-xl p-1 border border-paper-200 gap-1 shadow-soft">
-          {['pengurus', 'pengawas'].map((t) => (
+          {['pembina', 'pengurus', 'pengawas'].map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -134,7 +180,7 @@ function PeopleGrid() {
         </div>
       </div>
 
-      <div className={`grid gap-4 ${people.length <= 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6'}`}>
+      <div className={`grid gap-4 ${gridClass}`}>
         {people.map((p, i) => (
           <div
             key={i}
@@ -156,17 +202,35 @@ function PeopleGrid() {
 
 /* ----------  TUGAS — Pengurus / Pengawas tabs  ---------- */
 function TugasSection() {
-  const [tab, setTab] = useState('pengurus');
-  const items = tab === 'pengurus' ? ORG_DATA.tugasPengurus : ORG_DATA.tugasPengawas;
-  const meta = tab === 'pengurus'
-    ? { title: 'Tugas Pengurus', desc: 'Memimpin dan mewakili perkumpulan dalam interaksi strategis nasional dan internasional.', icon: 'M13 10V3L4 14h7v7l9-11h-7z' }
-    : { title: 'Tugas Pengawas', desc: 'Mengawasi pelaksanaan kebijakan pengurus dan memberi nasehat strategis.',                     icon: 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z' };
+  const [tab, setTab] = useState('pembina');
+  const TUGAS = {
+    pembina: {
+      items: ORG_DATA.tugasPembina,
+      title: 'Tugas Pembina',
+      desc: 'Menetapkan arah strategis jangka panjang serta menjaga nilai, etika, dan independensi organisasi.',
+      icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+    },
+    pengurus: {
+      items: ORG_DATA.tugasPengurus,
+      title: 'Tugas Pengurus',
+      desc: 'Memimpin dan mewakili perkumpulan dalam interaksi strategis nasional dan internasional.',
+      icon: 'M13 10V3L4 14h7v7l9-11h-7z',
+    },
+    pengawas: {
+      items: ORG_DATA.tugasPengawas,
+      title: 'Tugas Pengawas',
+      desc: 'Mengawasi pelaksanaan kebijakan pengurus dan memberi nasehat strategis.',
+      icon: 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z',
+    },
+  };
+  const meta = TUGAS[tab];
+  const items = meta.items;
 
   return (
     <div>
       <div className="text-center mb-10">
         <span className="text-[10px] uppercase tracking-widest text-kvi-500 font-bold font-body">
-          Tugas Pengawas dan Pengurus
+          Tugas Pembina, Pengurus dan Pengawas
         </span>
         <h3 className="font-display text-2xl md:text-3xl font-bold text-navy-800 mt-2">
           Pembagian Tanggung Jawab
@@ -176,7 +240,7 @@ function TugasSection() {
 
       <div className="flex justify-center mb-8">
         <div className="inline-flex bg-paper-100 rounded-xl p-1 border border-paper-200 gap-1">
-          {['pengurus', 'pengawas'].map((t) => (
+          {['pembina', 'pengurus', 'pengawas'].map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -328,6 +392,33 @@ function DivisiTabs() {
               </div>
             </div>
 
+            {d.pic && (
+              <div className="mb-7 grid sm:grid-cols-2 gap-4">
+                <div className="p-4 bg-kvi-50/60 rounded-xl border border-kvi-100">
+                  <p className="text-[10px] uppercase tracking-widest text-kvi-600 font-bold mb-3">PIC · Dewan Pengurus</p>
+                  <ul className="space-y-1.5">
+                    {d.pic.pengurus.map((p, i) => (
+                      <li key={i} className="flex items-start gap-2 text-[13px] text-zinc-600 font-body">
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-kvi-500 flex-shrink-0" />
+                        <span className="leading-snug">{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="p-4 bg-navy-50 rounded-xl border border-navy-100">
+                  <p className="text-[10px] uppercase tracking-widest text-navy-700 font-bold mb-3">PIC · Dewan Pengawas</p>
+                  <ul className="space-y-1.5">
+                    {d.pic.pengawas.map((p, i) => (
+                      <li key={i} className="flex items-start gap-2 text-[13px] text-zinc-600 font-body">
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-navy-700 flex-shrink-0" />
+                        <span className="leading-snug">{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+
             <p className="text-[10px] uppercase tracking-widest text-kvi-500 font-bold mb-3">Fungsi</p>
             <ul className="space-y-3">
               {d.fungsi.map((f, i) => (
@@ -379,6 +470,25 @@ function OrgChart() {
         <h3 className="font-display text-xl md:text-2xl font-bold text-navy-800 mt-1">
           Konsil Veteriner Indonesia
         </h3>
+      </div>
+
+      {/* Top: Pembina */}
+      <div className="max-w-xs mx-auto">
+        <div className="bg-gold-400 text-navy-900 rounded-xl p-5 text-center">
+          <div className="text-[10px] uppercase tracking-widest text-navy-700 font-bold mb-1">Pembina</div>
+          <div className="font-display font-bold">Dewan Pembina</div>
+          <div className="text-navy-800/70 text-xs mt-1">{ORG_DATA.pembina.length} anggota</div>
+        </div>
+      </div>
+
+      {/* Connector: Pembina -> Pengawas & Pengurus */}
+      <div className="relative max-w-3xl mx-auto" style={{ height: 28 }}>
+        <svg width="100%" height="28" viewBox="0 0 1000 28" preserveAspectRatio="none" className="absolute inset-0" aria-hidden>
+          <line x1="500" y1="0" x2="500" y2="9" stroke="#cbd5e1" strokeWidth="1.5" />
+          <line x1="250" y1="9" x2="750" y2="9" stroke="#cbd5e1" strokeWidth="1.5" />
+          <line x1="250" y1="9" x2="250" y2="28" stroke="#cbd5e1" strokeWidth="1.5" />
+          <line x1="750" y1="9" x2="750" y2="28" stroke="#cbd5e1" strokeWidth="1.5" />
+        </svg>
       </div>
 
       {/* Top: Pengawas + Pengurus */}
@@ -444,11 +554,11 @@ function Organization() {
             Struktur Organisasi
           </span>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-navy-800 mt-3">
-            Pengurus, Pengawas &amp; Divisi KVI
+            Pembina, Pengurus, Pengawas &amp; Divisi KVI
           </h2>
           <div className="h-1 w-16 bg-kvi-500 rounded mt-4 mx-auto" />
           <p className="text-zinc-500 font-body mt-5 max-w-2xl mx-auto text-sm md:text-base">
-            Struktur organisasi Konsil Veteriner Indonesia terdiri dari Dewan Pengawas, Dewan Pengurus, dan 5 Divisi sebagai unit pelaksana.
+            Struktur organisasi Konsil Veteriner Indonesia terdiri dari Dewan Pembina, Dewan Pengawas, Dewan Pengurus, dan 5 Divisi sebagai unit pelaksana.
           </p>
         </div>
 

@@ -1,5 +1,5 @@
-import hero1 from '../assets/hero_1.jpeg';
-import hero2 from '../assets/hero_2.jpeg';
+import hero1 from '../assets/optimized/hero_kvi_1.webp';
+import hero2 from '../assets/optimized/hero_kvi_2.webp';
 import gambarRapat from "../assets/rapat-pleno.jpeg";
 
 const slugify = (value = '') =>
@@ -12,12 +12,10 @@ const slugify = (value = '') =>
     .replace(/(^-|-$)+/g, '');
 
 export const navLinks = [
-  { label: 'BERANDA',              path: '/',          anchor: '' },
-  { label: 'TENTANG KAMI',         path: '/tentang',   anchor: '' },
-  { label: 'REGISTRASI & LISENSI', path: '/registrasi',anchor: '' },
-  { label: 'ETIKA & STANDAR',      path: '/etika',     anchor: '' },
-  { label: 'BERITA & PUBLIKASI',   path: '/berita',    anchor: '' },
-  { label: 'HUBUNGI KAMI',         path: '/kontak',    anchor: '' },
+  { label: 'BERANDA',            path: '/',       anchor: '' },
+  { label: 'TENTANG KAMI',       path: '/tentang',anchor: '' },
+  { label: 'BERITA & PUBLIKASI', path: '/berita', anchor: '' },
+  { label: 'HUBUNGI KAMI',       path: '/kontak', anchor: '' },
 ];
 
 /* ─── HERO ─── */

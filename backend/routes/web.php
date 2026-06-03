@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\MembershipController as AdminMembershipController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
+use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\MemberController as AdminMemberController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Article;
-use App\Models\Membership;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -19,17 +19,23 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    $members = User::query()->where('is_admin', false);
+
     return view('admin.dashboard', [
-        'memberships_total' => Membership::count(),
-        'memberships_pending' => Membership::where('status', 'pending')->count(),
-        'memberships_approved' => Membership::where('status', 'approved')->count(),
-        'memberships_rejected' => Membership::where('status', 'rejected')->count(),
+        'members_total' => (clone $members)->count(),
+        'members_active' => (clone $members)->where('membership_status', User::STATUS_ACTIVE)->count(),
+        'members_pending' => (clone $members)->where('membership_status', User::STATUS_PENDING_VERIFICATION)->count(),
+        'members_awaiting' => (clone $members)->where('membership_status', User::STATUS_AWAITING_DIPLOMA)->count(),
+        'members_rejected' => (clone $members)->where('membership_status', User::STATUS_REJECTED)->count(),
+        'members_expired' => (clone $members)->where('membership_status', User::STATUS_EXPIRED)->count(),
+        'members_dokter_hewan' => (clone $members)->where('category', User::CATEGORY_DOKTER_HEWAN)->count(),
+        'members_paramedis' => (clone $members)->where('category', User::CATEGORY_PARAMEDIS)->count(),
         'admin_users' => User::where('is_admin', true)->count(),
         'articles_total' => Article::count(),
         'articles_published' => Article::where('status', 'published')->count(),
         'articles_draft' => Article::where('status', 'draft')->count(),
         'latest_articles' => Article::orderByDesc('created_at')->limit(5)->get(),
-        'latest_memberships' => Membership::orderByDesc('created_at')->limit(5)->get(),
+        'latest_members' => User::where('is_admin', false)->orderByDesc('created_at')->limit(5)->get(),
     ]);
 })->middleware(['admin'])->name('dashboard');
 
@@ -45,16 +51,18 @@ Route::middleware(['admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        Route::get('/memberships', [AdminMembershipController::class, 'index'])
-            ->name('memberships.index');
-        Route::get('/memberships/{membership}', [AdminMembershipController::class, 'show'])
-            ->name('memberships.show');
-        Route::post('/memberships/{membership}/verify', [AdminMembershipController::class, 'verify'])
-            ->name('memberships.verify');
-        Route::post('/memberships/{membership}/reject', [AdminMembershipController::class, 'reject'])
-            ->name('memberships.reject');
-        Route::get('/memberships/{membership}/document', [AdminMembershipController::class, 'document'])
-            ->name('memberships.document');
+        Route::get('/members', [AdminMemberController::class, 'index'])
+            ->name('members.index');
+        Route::get('/members/{user}', [AdminMemberController::class, 'show'])
+            ->name('members.show');
+        Route::post('/members/{user}/approve', [AdminMemberController::class, 'approve'])
+            ->name('members.approve');
+        Route::post('/members/{user}/reject', [AdminMemberController::class, 'reject'])
+            ->name('members.reject');
+        Route::post('/members/{user}/suspend', [AdminMemberController::class, 'suspend'])
+            ->name('members.suspend');
+        Route::post('/members/{user}/reactivate', [AdminMemberController::class, 'reactivate'])
+            ->name('members.reactivate');
 
         Route::get('/users', [AdminUserController::class, 'index'])
             ->name('users.index');
@@ -81,4 +89,17 @@ Route::middleware(['admin'])
             ->name('cms.update');
         Route::delete('/cms/{article}', [AdminArticleController::class, 'destroy'])
             ->name('cms.destroy');
+
+        Route::get('/events', [AdminEventController::class, 'index'])
+            ->name('events.index');
+        Route::get('/events/create', [AdminEventController::class, 'create'])
+            ->name('events.create');
+        Route::post('/events', [AdminEventController::class, 'store'])
+            ->name('events.store');
+        Route::get('/events/{event}/edit', [AdminEventController::class, 'edit'])
+            ->name('events.edit');
+        Route::put('/events/{event}', [AdminEventController::class, 'update'])
+            ->name('events.update');
+        Route::delete('/events/{event}', [AdminEventController::class, 'destroy'])
+            ->name('events.destroy');
     });

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { berita } from "../data/siteData";
+import { fetchArticle, fetchArticles, FALLBACK_NEWS_IMG } from "../api/articles";
 import NotFound from "./NotFound";
 
 const KAT_COLOR = {
@@ -11,8 +11,31 @@ const KAT_COLOR = {
 
 export default function DetailBerita() {
   const { slug } = useParams();
-  const artikel = berita.find((item) => item.slug === slug);
+  const [artikel, setArtikel] = useState(null);
+  const [list, setList] = useState([]);
+  const [status, setStatus] = useState("loading"); // loading | ready | notfound
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let active = true;
+    setStatus("loading");
+    Promise.all([
+      fetchArticle(slug).catch(() => null),
+      fetchArticles().catch(() => []),
+    ]).then(([article, articles]) => {
+      if (!active) return;
+      if (!article) {
+        setStatus("notfound");
+        return;
+      }
+      setArtikel(article);
+      setList(articles);
+      setStatus("ready");
+    });
+    return () => {
+      active = false;
+    };
+  }, [slug]);
 
   useEffect(() => {
     const fn = () => {
@@ -31,14 +54,24 @@ export default function DetailBerita() {
     setProgress(0);
   }, [slug]);
 
-  if (!artikel) {
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-zinc-400 text-sm font-semibold">
+        Memuat artikel...
+      </div>
+    );
+  }
+
+  if (status === "notfound" || !artikel) {
     return <NotFound />;
   }
 
-  const currentIndex = berita.findIndex((item) => item.slug === slug);
-  const prev = berita[(currentIndex + 1) % berita.length];
-  const next = berita[(currentIndex - 1 + berita.length) % berita.length];
-  const related = berita.filter((item) => item.slug !== slug).slice(0, 3);
+  const currentIndex = list.findIndex((item) => item.slug === slug);
+  const prev = list.length ? list[(currentIndex + 1) % list.length] : artikel;
+  const next = list.length
+    ? list[(currentIndex - 1 + list.length) % list.length]
+    : artikel;
+  const related = list.filter((item) => item.slug !== slug).slice(0, 3);
 
   return (
     <>
@@ -52,7 +85,7 @@ export default function DetailBerita() {
       <div className="relative bg-navy-800 pt-[88px] md:pt-[104px] overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-15"
-          style={{ backgroundImage: `url('${artikel.gambar}')` }}
+          style={{ backgroundImage: `url('${artikel.gambar || FALLBACK_NEWS_IMG}')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-navy-900/60 to-navy-800/95" />
         <div className="relative max-w-[900px] mx-auto px-6 md:px-8 py-14">
@@ -166,7 +199,7 @@ export default function DetailBerita() {
             <div id="article-body">
               <div className="rounded-2xl overflow-hidden mb-10 shadow-card">
                 <img
-                  src={artikel.gambar}
+                  src={artikel.gambar || FALLBACK_NEWS_IMG}
                   alt={artikel.judul}
                   className="w-full h-[380px] object-cover"
                 />
@@ -456,7 +489,7 @@ export default function DetailBerita() {
                 >
                   <div className="aspect-[16/9] overflow-hidden">
                     <img
-                      src={b.gambar}
+                      src={b.gambar || FALLBACK_NEWS_IMG}
                       alt={b.judul}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                       loading="lazy"

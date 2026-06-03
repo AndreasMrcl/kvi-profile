@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Admin')</title>
+    <title>@yield('title', 'Dashboard') · {{ config('app.name', 'KVI') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=manrope:400,500,600,700&display=swap" rel="stylesheet" />
     <style>
@@ -501,12 +501,14 @@
                 <nav class="nav">
                     <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
                         href="{{ route('dashboard') }}">Dashboard</a>
-                    <a class="nav-link {{ request()->routeIs('admin.memberships.*') ? 'active' : '' }}"
-                        href="{{ route('admin.memberships.index') }}">Memberships</a>
+                    <a class="nav-link {{ request()->routeIs('admin.members.*') ? 'active' : '' }}"
+                        href="{{ route('admin.members.index') }}">Anggota</a>
                     <a class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}"
                         href="{{ route('admin.users.index') }}">Admin Users</a>
                     <a class="nav-link {{ request()->routeIs('admin.cms.*') ? 'active' : '' }}"
                         href="{{ route('admin.cms.index') }}">CMS</a>
+                    <a class="nav-link {{ request()->routeIs('admin.events.*') ? 'active' : '' }}"
+                        href="{{ route('admin.events.index') }}">Acara</a>
                     <form method="post" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="nav-button">Logout</button>

@@ -11,6 +11,7 @@ const TARGETS = [
   { match: /^LOGO-KVI\.png$/i, format: "webp", maxWidth: 600, quality: 90 },
   { match: /^profile\.jpe?g$/i, format: "webp", maxWidth: 1200, quality: 82 },
   { match: /^hero_\d+\.jpe?g$/i, format: "webp", maxWidth: 1920, quality: 78 },
+  { match: /^hero_kvi_\d+\.jpe?g$/i, format: "webp", maxWidth: 1920, quality: 78 },
 ];
 
 const fmtKb = (n) => `${(n / 1024).toFixed(1)} KB`;

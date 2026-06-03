@@ -1,87 +1,88 @@
 @extends('layouts.admin')
 
+@php
+    use App\Models\User;
+@endphp
+
 @section('title', 'Dashboard')
 @section('heading', 'Dashboard')
-@section('description', 'Overview of membership activity and admin access.')
+@section('description', 'Ringkasan keanggotaan KVI & konten website.')
 @section('actions')
-    <a class="btn btn-outline" href="{{ route('admin.memberships.index') }}">Open Memberships</a>
-    <a class="btn btn-ghost" href="{{ route('admin.cms.index') }}">Open CMS</a>
+    <a class="btn btn-outline" href="{{ route('admin.members.index') }}">Kelola Anggota</a>
+    <a class="btn btn-ghost" href="{{ route('admin.cms.index') }}">Kelola Berita</a>
 @endsection
 
 @section('content')
     <div class="stack">
         <div class="stats-grid">
             <div class="card stat-card">
-                <div class="stat-label">Total Memberships</div>
-                <div class="stat-value">{{ $memberships_total }}</div>
-                <div class="note">All submissions</div>
+                <div class="stat-label">Total Anggota</div>
+                <div class="stat-value">{{ $members_total }}</div>
+                <div class="note">Semua status</div>
             </div>
             <div class="card stat-card">
-                <div class="stat-label">Pending</div>
-                <div class="stat-value">{{ $memberships_pending }}</div>
-                <div class="note">Awaiting verification</div>
+                <div class="stat-label">Anggota Aktif</div>
+                <div class="stat-value">{{ $members_active }}</div>
+                <div class="note">Sudah disahkan</div>
             </div>
             <div class="card stat-card">
-                <div class="stat-label">Approved</div>
-                <div class="stat-value">{{ $memberships_approved }}</div>
-                <div class="note">Verified and approved</div>
+                <div class="stat-label">Menunggu Verifikasi</div>
+                <div class="stat-value">{{ $members_pending }}</div>
+                <div class="note">Ijazah perlu dicek</div>
             </div>
             <div class="card stat-card">
-                <div class="stat-label">Rejected</div>
-                <div class="stat-value">{{ $memberships_rejected }}</div>
-                <div class="note">Did not pass checks</div>
+                <div class="stat-label">Menunggu Ijazah</div>
+                <div class="stat-value">{{ $members_awaiting }}</div>
+                <div class="note">Akan expire 7 hari</div>
             </div>
             <div class="card stat-card">
-                <div class="stat-label">Admin Users</div>
-                <div class="stat-value">{{ $admin_users }}</div>
-                <div class="note">Active admins</div>
+                <div class="stat-label">Ditolak</div>
+                <div class="stat-value">{{ $members_rejected }}</div>
+                <div class="note">Tidak lolos verifikasi</div>
             </div>
             <div class="card stat-card">
-                <div class="stat-label">Total Articles</div>
-                <div class="stat-value">{{ $articles_total }}</div>
-                <div class="note">CMS entries</div>
+                <div class="stat-label">Expired</div>
+                <div class="stat-value">{{ $members_expired }}</div>
+                <div class="note">Tidak input ijazah</div>
             </div>
             <div class="card stat-card">
-                <div class="stat-label">Published</div>
-                <div class="stat-value">{{ $articles_published }}</div>
-                <div class="note">Visible to public</div>
+                <div class="stat-label">Dokter Hewan</div>
+                <div class="stat-value">{{ $members_dokter_hewan }}</div>
+                <div class="note">Total kategori</div>
             </div>
             <div class="card stat-card">
-                <div class="stat-label">Drafts</div>
-                <div class="stat-value">{{ $articles_draft }}</div>
-                <div class="note">Needs review</div>
+                <div class="stat-label">Paramedis Veteriner</div>
+                <div class="stat-value">{{ $members_paramedis }}</div>
+                <div class="note">Total kategori</div>
             </div>
         </div>
 
         <div class="card">
-            <p class="card-title">Latest Submissions</p>
+            <p class="card-title">Pendaftar Terbaru</p>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
+                        <th>Nama</th>
                         <th>Email</th>
+                        <th>Kategori</th>
                         <th>Status</th>
-                        <th>Submitted</th>
+                        <th>Terdaftar</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($latest_memberships as $membership)
+                    @forelse ($latest_members as $member)
                         <tr>
-                            <td>#{{ $membership->id }}</td>
-                            <td>{{ $membership->full_name }}</td>
-                            <td>{{ $membership->email }}</td>
-                            <td>
-                                <span
-                                    class="badge badge-{{ $membership->status }}">{{ ucfirst($membership->status) }}</span>
-                            </td>
-                            <td>{{ optional($membership->created_at)->format('d M Y H:i') }}</td>
-                            <td><a href="{{ route('admin.memberships.show', $membership) }}">View</a></td>
+                            <td>{{ $member->name }}</td>
+                            <td>{{ $member->email }}</td>
+                            <td>{{ User::categoryLabel($member->category) }}</td>
+                            <td>{{ User::statusLabel($member->membership_status) }}</td>
+                            <td>{{ optional($member->created_at)->format('d M Y H:i') }}</td>
+                            <td><a href="{{ route('admin.members.show', $member) }}">Detail</a></td>
                         </tr>
                     @empty
                         <tr>
-                            <td class="note" colspan="6">No submissions yet.</td>
+                            <td class="note" colspan="6">Belum ada pendaftar.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -89,13 +90,13 @@
         </div>
 
         <div class="card">
-            <p class="card-title">Latest Articles</p>
+            <p class="card-title">Berita Terbaru</p>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Title</th>
+                        <th>Judul</th>
                         <th>Status</th>
-                        <th>Updated</th>
+                        <th>Diperbarui</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -111,7 +112,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="note" colspan="4">No articles yet.</td>
+                            <td class="note" colspan="4">Belum ada berita.</td>
                         </tr>
                     @endforelse
                 </tbody>
