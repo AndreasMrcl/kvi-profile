@@ -114,7 +114,7 @@ const ORG_DATA = {
         'Memberikan dukungan teknis bagi praktisi kedokteran hewan agar menjadi spesialis dalam disiplin ilmu tertentu.',
       ],
       pic: {
-        pengurus: ['drh. Siti Komariah', 'drh. Baiq Yunita Arisandi, MAP.', 'drh. Mochamad Aji Purbayu, M.Sc', 'Mochamad Nandan Iskandar, A.Md.', 'Drh. Indra Exploitasia Semiawan, M.Si.'],
+        pengurus: ['drh. Siti Komariah', 'drh. Baiq Yunita Arisandi, MAP.', 'drh. Mochamad Aji Purbayu, M.Sc', 'Mochamad Nandan Iskandar, A.Md.', 'drh. Indra Exploitasia Semiawan, M.Si.'],
         pengawas: ['drh. Suhartono, MM., M.Vet', 'Sri Wahyuni'],
       },
     },
