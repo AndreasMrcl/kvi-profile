@@ -8,7 +8,7 @@
 @section('description', 'Update article details and status.')
 
 @section('actions')
-    <form method="post" action="{{ route('admin.cms.destroy', $article) }}" onsubmit="return confirm('Delete this article?')">
+    <form method="post" action="{{ route('admin.cms.destroy', $article) }}" data-confirm="Hapus artikel ini secara permanen?" data-confirm-yes="Ya, hapus">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-danger">Delete Article</button>
@@ -55,7 +55,7 @@
                 <label for="cover_image">Cover image (JPG/PNG/WEBP, max 4MB)</label>
                 @if ($article->cover_image_path)
                     <div style="display:flex; align-items:center; gap:12px; margin-bottom: 10px;">
-                        <img class="thumb" src="{{ \Illuminate\Support\Facades\Storage::url($article->cover_image_path) }}"
+                        <img class="thumb" src="{{ asset('storage/' . $article->cover_image_path) }}"
                             alt="{{ $article->title }}">
                         <div>
                             <div class="note">Current cover image</div>

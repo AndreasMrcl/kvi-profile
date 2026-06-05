@@ -118,7 +118,16 @@
                         </td>
                         <td>{{ optional($member->created_at)->format('d M Y') }}</td>
                         <td>
-                            <a href="{{ route('admin.members.show', $member) }}">Detail</a>
+                            <div class="actions">
+                                <a href="{{ route('admin.members.show', $member) }}" class="btn btn-outline btn-sm">Detail</a>
+                                <form method="post" action="{{ route('admin.members.destroy', $member) }}"
+                                      data-confirm="Hapus anggota ini secara permanen? Tindakan ini tidak bisa dibatalkan."
+                                      data-confirm-icon="warning" data-confirm-yes="Ya, hapus">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @empty

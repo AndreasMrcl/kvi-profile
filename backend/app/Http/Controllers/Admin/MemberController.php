@@ -163,6 +163,17 @@ class MemberController extends Controller
             ->with('status', 'Anggota diaktifkan kembali.');
     }
 
+    public function destroy(User $user): RedirectResponse
+    {
+        $this->ensureMember($user);
+
+        $user->delete();
+
+        return redirect()
+            ->route('admin.members.index')
+            ->with('status', 'Anggota dihapus.');
+    }
+
     private function ensureMember(User $user): void
     {
         if ($user->is_admin) {

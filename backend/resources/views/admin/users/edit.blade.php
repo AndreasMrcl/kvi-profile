@@ -47,7 +47,7 @@
     <div class="card" style="margin-top: 16px;">
         <p class="card-title">Danger zone</p>
         <form method="post" action="{{ route('admin.users.destroy', $admin) }}"
-            onsubmit="return confirm('Delete this admin user?')">
+            data-confirm="Hapus admin user ini?" data-confirm-yes="Ya, hapus">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger">Delete Admin User</button>

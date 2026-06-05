@@ -5,23 +5,26 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class AdminUserSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Buat/perbarui akun admin dari kredensial di .env.
+     * Admin sengaja TANPA membership_number & category (NULL) — tidak ikut
+     * urutan/penomoran anggota. Set ADMIN_EMAIL, ADMIN_NAME, ADMIN_PASSWORD di .env.
      */
     public function run(): void
     {
+        $email = env('ADMIN_EMAIL', 'admin@konsilveteriner.com');
+        $password = env('ADMIN_PASSWORD', 'change-me');
+
         User::updateOrCreate(
-            ['email' => 'admin@gmail.com'],
+            ['email' => $email],
             [
-                'name' => 'KVI Admin',
-                'password' => Hash::make('123123'),
+                'name' => env('ADMIN_NAME', 'Administrator KVI'),
+                'password' => Hash::make($password),
                 'is_admin' => true,
                 'email_verified_at' => now(),
-                'remember_token' => Str::random(10),
             ]
         );
     }

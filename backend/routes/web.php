@@ -63,6 +63,8 @@ Route::middleware(['admin'])
             ->name('members.suspend');
         Route::post('/members/{user}/reactivate', [AdminMemberController::class, 'reactivate'])
             ->name('members.reactivate');
+        Route::delete('/members/{user}', [AdminMemberController::class, 'destroy'])
+            ->name('members.destroy');
 
         Route::get('/users', [AdminUserController::class, 'index'])
             ->name('users.index');

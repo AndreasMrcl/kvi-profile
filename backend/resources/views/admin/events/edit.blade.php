@@ -8,7 +8,7 @@
 @section('description', 'Update detail acara.')
 
 @section('actions')
-    <form method="post" action="{{ route('admin.events.destroy', $event) }}" onsubmit="return confirm('Delete this event?')">
+    <form method="post" action="{{ route('admin.events.destroy', $event) }}" data-confirm="Hapus acara ini secara permanen?" data-confirm-yes="Ya, hapus">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-danger">Delete Event</button>

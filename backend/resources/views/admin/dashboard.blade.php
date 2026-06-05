@@ -78,7 +78,7 @@
                             <td>{{ User::categoryLabel($member->category) }}</td>
                             <td>{{ User::statusLabel($member->membership_status) }}</td>
                             <td>{{ optional($member->created_at)->format('d M Y H:i') }}</td>
-                            <td><a href="{{ route('admin.members.show', $member) }}">Detail</a></td>
+                            <td><a href="{{ route('admin.members.show', $member) }}" class="btn btn-outline btn-sm">Detail</a></td>
                         </tr>
                     @empty
                         <tr>
@@ -108,7 +108,7 @@
                                 <span class="badge badge-{{ $article->status }}">{{ ucfirst($article->status) }}</span>
                             </td>
                             <td>{{ optional($article->updated_at)->format('d M Y H:i') }}</td>
-                            <td><a href="{{ route('admin.cms.edit', $article) }}">Edit</a></td>
+                            <td><a href="{{ route('admin.cms.edit', $article) }}" class="btn btn-outline btn-sm">Edit</a></td>
                         </tr>
                     @empty
                         <tr>

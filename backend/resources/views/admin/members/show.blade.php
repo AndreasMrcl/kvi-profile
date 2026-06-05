@@ -124,7 +124,8 @@
         <div class="card stack" style="margin-top: 16px;">
             <p class="card-title">Aksi Verifikasi</p>
 
-            <form class="form-grid" method="post" action="{{ route('admin.members.approve', $member) }}">
+            <form class="form-grid" method="post" action="{{ route('admin.members.approve', $member) }}"
+                  data-confirm="Sahkan keanggotaan ini? Nomor anggota akan diterbitkan otomatis." data-confirm-icon="question" data-confirm-yes="Ya, sahkan">
                 @csrf
                 <div>
                     <label for="approve-notes">Catatan (opsional)</label>
@@ -139,7 +140,8 @@
                 </div>
             </form>
 
-            <form class="form-grid" method="post" action="{{ route('admin.members.reject', $member) }}">
+            <form class="form-grid" method="post" action="{{ route('admin.members.reject', $member) }}"
+                  data-confirm="Tolak keanggotaan ini?" data-confirm-yes="Ya, tolak">
                 @csrf
                 <div>
                     <label for="reject-notes">Alasan Penolakan</label>
@@ -156,7 +158,8 @@
     @if ($status === User::STATUS_ACTIVE)
         <div class="card stack" style="margin-top: 16px;">
             <p class="card-title">Suspend Anggota</p>
-            <form class="form-grid" method="post" action="{{ route('admin.members.suspend', $member) }}">
+            <form class="form-grid" method="post" action="{{ route('admin.members.suspend', $member) }}"
+                  data-confirm="Suspend anggota ini?" data-confirm-yes="Ya, suspend">
                 @csrf
                 <div>
                     <label for="suspend-notes">Alasan Suspend</label>
@@ -173,7 +176,8 @@
     @if ($status === User::STATUS_SUSPENDED)
         <div class="card stack" style="margin-top: 16px;">
             <p class="card-title">Aktifkan Kembali</p>
-            <form method="post" action="{{ route('admin.members.reactivate', $member) }}">
+            <form method="post" action="{{ route('admin.members.reactivate', $member) }}"
+                  data-confirm="Aktifkan kembali anggota ini?" data-confirm-icon="question" data-confirm-yes="Ya, aktifkan">
                 @csrf
                 <div class="button-row">
                     <button type="submit" class="btn">Aktifkan Kembali</button>
@@ -190,4 +194,19 @@
             </p>
         </div>
     @endif
+
+    <div class="card stack" style="margin-top: 16px;">
+        <p class="card-title">Hapus Anggota</p>
+        <p class="note">
+            Menghapus akan menghilangkan data anggota ini secara permanen dan tidak bisa dibatalkan.
+        </p>
+        <form method="post" action="{{ route('admin.members.destroy', $member) }}"
+              data-confirm="Hapus anggota ini secara permanen? Tindakan ini tidak bisa dibatalkan." data-confirm-yes="Ya, hapus">
+            @csrf
+            @method('DELETE')
+            <div class="button-row">
+                <button type="submit" class="btn btn-danger">Hapus Anggota</button>
+            </div>
+        </form>
+    </div>
 @endsection

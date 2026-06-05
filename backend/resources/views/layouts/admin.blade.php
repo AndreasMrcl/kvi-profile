@@ -294,6 +294,49 @@
             margin-top: 16px;
         }
 
+        .adm-pager {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            margin-top: 16px;
+        }
+
+        .adm-pager a,
+        .adm-pager span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 34px;
+            height: 34px;
+            padding: 0 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1;
+            color: var(--text);
+            text-decoration: none;
+            background: #fff;
+        }
+
+        .adm-pager a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .adm-pager .active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .adm-pager .disabled {
+            color: #cbd5e1;
+            background: #f8fafc;
+            cursor: default;
+        }
+
         label {
             display: block;
             font-size: 12px;
@@ -373,6 +416,19 @@
             gap: 12px;
             justify-content: flex-end;
             flex-wrap: wrap;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 8px;
         }
 
         .checkbox-row {
@@ -543,6 +599,43 @@
             </div>
         </main>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Konfirmasi terpusat: form dengan atribut data-confirm akan menampilkan modal SweetAlert2.
+        // Opsi tambahan: data-confirm-title, data-confirm-icon, data-confirm-yes.
+        document.addEventListener('submit', function (e) {
+            const form = e.target;
+            if (!(form instanceof HTMLFormElement) || !form.hasAttribute('data-confirm')) {
+                return;
+            }
+
+            // Fallback bila SweetAlert2 gagal dimuat (mis. CDN diblokir).
+            if (typeof Swal === 'undefined') {
+                if (!window.confirm(form.dataset.confirm)) {
+                    e.preventDefault();
+                }
+                return;
+            }
+
+            e.preventDefault();
+            Swal.fire({
+                title: form.dataset.confirmTitle || 'Konfirmasi',
+                text: form.dataset.confirm,
+                icon: form.dataset.confirmIcon || 'warning',
+                showCancelButton: true,
+                confirmButtonText: form.dataset.confirmYes || 'Ya, lanjutkan',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#0f766e',
+                cancelButtonColor: '#94a3b8',
+                reverseButtons: true,
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    form.submit(); // submit() programatik tidak memicu event ini lagi
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

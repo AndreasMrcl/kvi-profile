@@ -49,7 +49,7 @@
                             <div style="display:flex; align-items:center; gap:12px;">
                                 @if ($article->cover_image_path)
                                     <img class="thumb"
-                                        src="{{ \Illuminate\Support\Facades\Storage::url($article->cover_image_path) }}"
+                                        src="{{ asset('storage/' . $article->cover_image_path) }}"
                                         alt="{{ $article->title }}">
                                 @else
                                     <div class="thumb thumb-placeholder">No image</div>
@@ -73,14 +73,15 @@
                         </td>
                         <td>{{ optional($article->updated_at)->format('d M Y H:i') }}</td>
                         <td>
-                            <a href="{{ route('admin.cms.edit', $article) }}">Edit</a>
-                            <form method="post" action="{{ route('admin.cms.destroy', $article) }}"
-                                style="display:inline-block; margin-left: 12px;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="link-danger"
-                                    onclick="return confirm('Delete this article?')">Delete</button>
-                            </form>
+                            <div class="actions">
+                                <a href="{{ route('admin.cms.edit', $article) }}" class="btn btn-outline btn-sm">Edit</a>
+                                <form method="post" action="{{ route('admin.cms.destroy', $article) }}"
+                                    data-confirm="Hapus artikel ini secara permanen?" data-confirm-yes="Ya, hapus">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @empty

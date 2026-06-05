@@ -51,14 +51,15 @@
                             <span class="badge badge-{{ $event->status }}">{{ ucfirst($event->status) }}</span>
                         </td>
                         <td>
-                            <a href="{{ route('admin.events.edit', $event) }}">Edit</a>
-                            <form method="post" action="{{ route('admin.events.destroy', $event) }}"
-                                style="display:inline-block; margin-left: 12px;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="link-danger"
-                                    onclick="return confirm('Delete this event?')">Delete</button>
-                            </form>
+                            <div class="actions">
+                                <a href="{{ route('admin.events.edit', $event) }}" class="btn btn-outline btn-sm">Edit</a>
+                                <form method="post" action="{{ route('admin.events.destroy', $event) }}"
+                                    data-confirm="Hapus acara ini secara permanen?" data-confirm-yes="Ya, hapus">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @empty

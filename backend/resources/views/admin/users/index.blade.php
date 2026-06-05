@@ -25,14 +25,15 @@
                         <td>{{ $admin->email }}</td>
                         <td>{{ optional($admin->created_at)->format('d M Y') }}</td>
                         <td>
-                            <a href="{{ route('admin.users.edit', $admin) }}">Edit</a>
-                            <form method="post" action="{{ route('admin.users.destroy', $admin) }}"
-                                style="display:inline-block; margin-left: 12px;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="link-danger"
-                                    onclick="return confirm('Delete this admin user?')">Delete</button>
-                            </form>
+                            <div class="actions">
+                                <a href="{{ route('admin.users.edit', $admin) }}" class="btn btn-outline btn-sm">Edit</a>
+                                <form method="post" action="{{ route('admin.users.destroy', $admin) }}"
+                                    data-confirm="Hapus admin user ini?" data-confirm-yes="Ya, hapus">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @empty
