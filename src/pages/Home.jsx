@@ -279,6 +279,50 @@ function NewsSection() {
   );
 }
 
+/* ── FAQ answer renderer (string | array of blocks) ── */
+function FAQAnswer({ answer }) {
+  const blocks = Array.isArray(answer) ? answer : [answer];
+
+  return (
+    <div className="flex flex-col gap-3">
+      {blocks.map((block, i) => {
+        if (typeof block === "string") {
+          return <p key={i}>{block}</p>;
+        }
+        if (block.h) {
+          return (
+            <h4
+              key={i}
+              className="font-display font-bold text-navy-800 text-[14px] mt-1"
+            >
+              {block.h}
+            </h4>
+          );
+        }
+        if (block.ul) {
+          return (
+            <ul key={i} className="list-disc pl-5 flex flex-col gap-1">
+              {block.ul.map((item, j) => (
+                <li key={j}>{item}</li>
+              ))}
+            </ul>
+          );
+        }
+        if (block.ol) {
+          return (
+            <ol key={i} className="list-decimal pl-5 flex flex-col gap-1">
+              {block.ol.map((item, j) => (
+                <li key={j}>{item}</li>
+              ))}
+            </ol>
+          );
+        }
+        return null;
+      })}
+    </div>
+  );
+}
+
 /* ── FAQ section ── */
 function FAQSection() {
   const [open, setOpen] = useState(0);
@@ -358,7 +402,9 @@ function FAQSection() {
                 </button>
                 {open === i && (
                   <div className="px-5 pb-5 pt-0 text-sm text-zinc-500 leading-relaxed border-t border-paper-200 font-body">
-                    <div className="pt-4">{f.a}</div>
+                    <div className="pt-4">
+                      <FAQAnswer answer={f.a} />
+                    </div>
                   </div>
                 )}
               </div>

@@ -50,13 +50,87 @@ export const homeStats = [
 ];
 
 /* ─── HOME FAQ ─── */
+// Setiap item `a` dapat berupa string (satu paragraf) atau array blok.
+// Blok yang didukung: string (paragraf), { h: '...' } (sub-judul),
+// { ul: [...] } (daftar butir), { ol: [...] } (daftar bernomor).
 export const homeFaq = [
-  { q: 'Apa itu Konsil Veteriner Indonesia (KVI)?', a: 'KVI adalah perkumpulan yang berazaskan Pancasila serta bersifat nirlaba dan kekeluargaan. Kami berdedikasi untuk menetapkan standar pendidikan kedokteran hewan, melakukan registrasi, dan meningkatkan mutu pelayanan demi perlindungan masyarakat penerima jasa.' },
-  { q: 'Apa itu STRV dan siapa yang wajib memilikinya?', a: 'STRV (Surat Tanda Registrasi Veteriner) adalah bukti registrasi resmi bagi dokter hewan yang telah memenuhi standar kompetensi nasional. Setiap dokter hewan lulusan dalam maupun luar negeri yang ingin berpraktik di Indonesia wajib memilikinya.' },
-  { q: 'Bagaimana cara mendaftar STRV atau SIP?', a: 'Pendaftaran dilakukan secara online melalui portal SIVET (sivet.kvi.or.id). Buat akun, lengkapi formulir, unggah dokumen persyaratan, ikuti uji kompetensi (untuk pendaftar baru), dan tunggu verifikasi KVI dalam 7–14 hari kerja.' },
-  { q: 'Berapa masa berlaku STRV dan SIP?', a: 'STRV berlaku selama 5 tahun dan dapat diperpanjang. SIP berlaku selama 3 tahun. Perpanjangan dilakukan sebelum masa berlaku habis melalui portal SIVET tanpa perlu mengikuti uji kompetensi ulang.' },
-  { q: 'Apa yang dimaksud dengan Uji Kompetensi Dokter Hewan?', a: 'Uji Kompetensi adalah penilaian kemampuan dokter hewan lulusan baru mencakup aspek klinis, farmakologi, kesehatan masyarakat veteriner, dan manajemen praktik. Terdiri dari ujian tulis berbasis komputer (CBT) dan ujian praktik (OSCE).' },
-  { q: 'Bagaimana cara mengajukan pengaduan terhadap dokter hewan?', a: 'Pengaduan dapat diajukan melalui formulir online di halaman Etika & Standar portal KVI. Tim Majelis Etik akan memverifikasi laporan dalam 3 hari kerja dan menindaklanjuti secara profesional serta rahasia.' },
+  {
+    q: 'Apa itu Konsil Veteriner Indonesia (KVI)?',
+    a: [
+      'Konsil Veteriner Indonesia adalah badan regulator profesi kedokteran hewan yang independen dan bersifat nasional yang bertugas menjamin mutu pendidikan, kompetensi, registrasi, layanan, etika, dan disiplin dokter hewan serta paramedis veteriner untuk menjamin mutu pelayanan veteriner dan perlindungan masyarakat.',
+      'Konsil Veteriner Indonesia menghimpun seluruh dokter hewan dan paramedis veteriner Indonesia dalam satu sistem registrasi nasional, sebagai registran profesi, yang memperoleh hak melakukan layanan veteriner dan perlindungan profesi berdasarkan standar kompetensi, etika, dan disiplin yang ditetapkan untuk kepentingan masyarakat. Registran profesi bukan anggota KVI.',
+    ],
+  },
+  {
+    q: 'Siapa saja anggota KVI?',
+    a: [
+      'Keanggotaan Konsil Veteriner Indonesia adalah status yang dimiliki oleh organisasi atau institusi yang secara sah menjadi bagian dari pembentukan, pengembangan, dan tata kelola Konsil Veteriner Indonesia. Anggota KVI saat ini adalah sebagai berikut:',
+      {
+        ol: [
+          'Asosiasi Fakultas Kedokteran Hewan Indonesia (AFKHI);',
+          'Asosiasi Program Studi Sarjana Terapan Veteriner Indonesia (APSTVI);',
+          'Perhimpunan Dokter Hewan Indonesia (PDHI);',
+          'Perkumpulan Paramedik Veteriner Indonesia (PAVETI);',
+          'Paramedik Veteriner dan Inseminator Indonesia (PARAVETINDO);',
+          'Unsur pemerintah yang ditunjuk dari Kementerian Pertanian;',
+          'Unsur pemerintah yang ditunjuk dari Kementerian Kehutanan;',
+          'Unsur pemerintah yang ditunjuk dari Kementerian Kelautan dan Perikanan; dan',
+          'Unsur masyarakat.',
+        ],
+      },
+    ],
+  },
+  {
+    q: 'Apa itu Registrasi KVI?',
+    a: [
+      'Registrasi bukan merupakan keanggotaan KVI, melainkan pengakuan profesional yang diberikan oleh KVI kepada individu yang memenuhi persyaratan untuk menjalankan profesi veteriner di Indonesia.',
+      'Setiap dokter hewan dan paramedis veteriner yang memenuhi persyaratan berhak mengajukan registrasi kepada KVI untuk memperoleh pengakuan sebagai “Registran KVI” dan dicantumkan dalam Register Nasional Profesi Veteriner Indonesia.',
+      'Registrasi dilakukan melalui mekanisme verifikasi kualifikasi pendidikan, kompetensi, identitas, serta persyaratan profesi lainnya yang ditetapkan oleh KVI.',
+    ],
+  },
+  {
+    q: 'Siapa yang disebut Registran KVI?',
+    a: [
+      'Registran KVI adalah dokter hewan dan paramedis veteriner yang telah melakukan registrasi dan memperoleh Nomor Registrasi Nasional Profesi Veteriner Indonesia (NRNPVI) dan tercantum dalam sistem Register Nasional Profesi Veteriner Indonesia (RNPVI) dari KVI.',
+      'Nomor Registrasi Nasional Profesi Veteriner Indonesia (NRNPVI) terdiri dari Nomor Registrasi Nasional Dokter Hewan Indonesia (NRNDHI) dan Nomor Registrasi Nasional Paramedis Veteriner Indonesia (NRNPVI).',
+      'Register Nasional Profesi Veteriner Indonesia (RNPVI) terdiri dari Register Nasional Dokter Hewan Indonesia (RNDHI) dan Register Nasional Paramedis Veteriner Indonesia (RNPVI).',
+    ],
+  },
+  {
+    q: 'Bagaimana jalur registrasi di KVI?',
+    a: [
+      { h: 'Jalur Registrasi Dokter Hewan' },
+      'Calon registran mengajukan permohonan melalui portal KVI dengan melampirkan:',
+      {
+        ul: [
+          'Identitas diri',
+          'Ijazah/Sertifikat Profesi Dokter Hewan',
+          'Nomor Induk Kependudukan',
+          'Pas foto',
+          'Surat pernyataan mematuhi standar dan kode etik profesi',
+        ],
+      },
+      'Setelah dilakukan verifikasi, KVI akan menerbitkan: Nomor Registrasi Nasional Dokter Hewan Indonesia (NRNDHI), dan nama yang bersangkutan tercantum dalam sistem: Register Nasional Dokter Hewan Indonesia (RNDHI).',
+      { h: 'Jalur Registrasi Paramedis Veteriner' },
+      'Calon registran mengajukan permohonan melalui portal KVI dengan melampirkan:',
+      {
+        ul: [
+          'Identitas diri',
+          'Ijazah pendidikan atau sertifikat kompetensi bidang kesehatan hewan',
+          'Pas foto',
+          'Surat pernyataan mematuhi standar dan kode etik profesi',
+        ],
+      },
+      'Setelah dilakukan verifikasi, KVI akan menerbitkan: Nomor Registrasi Nasional Paramedis Veteriner Indonesia (NRNPVI), dan nama yang bersangkutan tercantum dalam sistem: Register Nasional Paramedis Veteriner Indonesia (RNPVI).',
+    ],
+  },
+  {
+    q: 'Apa hubungan Registrasi KVI dengan SIP?',
+    a: [
+      'Selama belum terdapat ketentuan peraturan perundang-undangan yang mengatur lain, registrasi yang diterbitkan oleh KVI tidak terkait dengan dan tidak untuk menggantikan Surat Izin Praktik atau bentuk perizinan lain yang berlaku saat ini, sesuai ketentuan peraturan perundang-undangan.',
+      'Registrasi KVI berfungsi sebagai pengakuan profesional nasional dan basis data profesi veteriner Indonesia, serta menjadi landasan pengembangan sistem regulasi profesi veteriner di masa mendatang.',
+    ],
+  },
 ];
 
 /* ─── ABOUT ─── */
