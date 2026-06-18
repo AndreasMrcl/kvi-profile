@@ -1,24 +1,34 @@
 import React, { useState, useEffect, useRef } from "react";
 
+/* Resolve member photos in src/assets/org/*.webp to their bundled URLs */
+const FOTO_URLS = import.meta.glob("../assets/org/*.webp", {
+  eager: true,
+  query: "?url",
+  import: "default",
+});
+const fotoUrl = (file) => FOTO_URLS[`../assets/org/${file}`];
+
 /* ----------  DATA  ---------- */
 const ORG_DATA = {
   pembina: [
-    { inisial: 'AS', nama: 'Dr. drh. Agung Suganda, M.Si.', jabatan: 'Ketua' },
+    { inisial: 'AS', nama: 'Dr. drh. Agung Suganda, M.Si.', jabatan: 'Ketua',   foto: 'agung-suganda.webp' },
+    { inisial: 'RS', nama: 'Dr. H. Rahmat Shah',             jabatan: 'Anggota', foto: 'rahmat-shah.webp' },
+    { inisial: 'VY', nama: 'drh. H. Viva Yoga Mauladi, M.Si', jabatan: 'Anggota', foto: 'viva-yoga-mauladi.webp' },
   ],
   pengurus: [
-    { inisial: 'TB', nama: 'Prof. drh. Teguh Budipitojo, MP., Ph.D.', jabatan: 'Ketua' },
-    { inisial: 'MM', nama: 'Dr. drh. M. Munawaroh, M.M',             jabatan: 'Wakil Ketua 1' },
-    { inisial: 'SI', nama: 'drh. Safryson Idris, M.Si',              jabatan: 'Wakil Ketua 2' },
-    { inisial: 'AW', nama: 'drh. Andi Wijanarko, M.M',               jabatan: 'Sekretaris' },
-    { inisial: 'SK', nama: 'drh. Siti Komariah',                     jabatan: 'Wakil Sekretaris' },
-    { inisial: 'HE', nama: 'drh. Henny Endah Anggraeni, M.Sc.',      jabatan: 'Bendahara' },
+    { inisial: 'TB', nama: 'Prof. drh. Teguh Budipitojo, MP., Ph.D.', jabatan: 'Ketua',           foto: 'teguh-budipitojo.webp' },
+    { inisial: 'MM', nama: 'Dr. drh. M. Munawaroh, M.M',             jabatan: 'Wakil Ketua 1',     foto: 'm-munawaroh.webp' },
+    { inisial: 'SI', nama: 'drh. Safryson Idris, M.Si',              jabatan: 'Wakil Ketua 2',     foto: 'safryson-idris.webp' },
+    { inisial: 'AW', nama: 'drh. Andi Wijanarko, M.M',               jabatan: 'Sekretaris',        foto: 'andi-wijanarko.webp' },
+    { inisial: 'SK', nama: 'drh. Siti Komariah',                     jabatan: 'Wakil Sekretaris',  foto: 'siti-komariah.webp' },
+    { inisial: 'HE', nama: 'drh. Henny Endah Anggraeni, M.Sc.',      jabatan: 'Bendahara',         foto: 'henny-endah-anggraeni.webp' },
   ],
   pengawas: [
-    { inisial: 'EN', nama: 'Eko Kusumo Nugroho, MBA',                              jabatan: 'Ketua' },
-    { inisial: 'TF', nama: 'drh. Teuku Reza Ferasyi, M.Sc., Ph.D',                 jabatan: 'Anggota 1' },
-    { inisial: 'SU', nama: 'Susilo, S.T.P, M.Si.',                                 jabatan: 'Anggota 2' },
-    { inisial: 'WA', nama: 'Wijayati Andadari, SE',                                jabatan: 'Anggota 3' },
-    { inisial: 'MM', nama: 'Kol. Kes. (Purn) drh. Martha Mangapulina, S.H., M.H.', jabatan: 'Anggota 4' },
+    { inisial: 'EN', nama: 'Eko Kusumo Nugroho, MBA',                              jabatan: 'Ketua',     foto: 'eko-nugroho.webp' },
+    { inisial: 'TF', nama: 'drh. Teuku Reza Ferasyi, M.Sc., Ph.D',                 jabatan: 'Anggota 1', foto: 'teuku-reza-ferasyi.webp' },
+    { inisial: 'SU', nama: 'Susilo, S.T.P, M.Si.',                                 jabatan: 'Anggota 2', foto: 'susilo.webp' },
+    { inisial: 'WA', nama: 'Wijayati Andadari, SE (Alm)',                          jabatan: 'Anggota 3' },
+    { inisial: 'MM', nama: 'Kol. Kes. (Purn) drh. Martha Mangapulina, S.H., M.H.', jabatan: 'Anggota 4', foto: 'martha-mangapulina.webp' },
   ],
   tugasPembina: [
     'Menetapkan Arah Strategis Jangka Panjang KVI.',
@@ -58,8 +68,13 @@ const ORG_DATA = {
         'Tanggung jawab administratif lainnya',
       ],
       pic: {
-        pengurus: ['drh. Andi Wijanarko, M.M.', 'Sindu Wicaksono'],
-        pengawas: ['drh. Teuku Reza Ferasyi, M.Sc., Ph.D'],
+        pengurus: [
+          { nama: 'drh. Andi Wijanarko, M.M.', foto: 'andi-wijanarko.webp' },
+          { nama: 'Sindu Wicaksono, S.Pt', foto: 'sindu-wicaksono.webp' },
+        ],
+        pengawas: [
+          { nama: 'drh. Teuku Reza Ferasyi, M.Sc., Ph.D', foto: 'teuku-reza-ferasyi.webp' },
+        ],
       },
     },
     {
@@ -77,12 +92,16 @@ const ORG_DATA = {
       ],
       pic: {
         pengurus: [
-          'Prof. drh. Bambang Pontjo, Ph.D.',
-          'Prof. Dr. Fedik Abdul Rantam',
-          'Prof. Dr. drh. Widagdo Sri Nugroho, MP',
-          'drh. Henny Endah Anggraeni, M.Sc.',
+          { nama: 'Prof. drh. Bambang Pontjo, Ph.D.', foto: 'bambang-pontjo.webp' },
+          { nama: 'Prof. Dr. drh. Fedik Abdul Rantam', foto: 'fedik-abdul-rantam.webp' },
+          { nama: 'Prof. Dr. drh. Widagdo Sri Nugroho, MP', foto: 'widagdo-sri-nugroho.webp' },
+          { nama: 'drh. Henny Endah Anggraeni, M.Sc.', foto: 'henny-endah-anggraeni.webp' },
+          { nama: 'drh. Debby Fadhilah Pazra', foto: 'debby-fadhilah-pazra.webp' },
         ],
-        pengawas: ['drh. Teuku Reza Ferasyi, M.Sc., Ph.D', 'Wijayati Andadari, SE'],
+        pengawas: [
+          { nama: 'Dr. drh. Sophy Setyawati, M.Si.', foto: 'sophy-setyawati.webp' },
+          { nama: 'Marjono, A.Md', foto: 'marjono.webp' },
+        ],
       },
     },
     {
@@ -97,8 +116,18 @@ const ORG_DATA = {
         'Memfasilitasi pengembangan profesi melalui konferensi akademis, seminar, program pelatihan, presentasi karya akademis, dan kursus pascasarjana.',
       ],
       pic: {
-        pengurus: ['drh. Safryson Idris, M.Si', 'drh. Suli Teruli Sitepu', 'Hendri Pramata'],
-        pengawas: ['drh. Suhartono, MM., M.Vet', 'Maman Sukirman, A.Md., SP'],
+        pengurus: [
+          { nama: 'drh. Safryson Idris, M.Si', foto: 'safryson-idris.webp' },
+          { nama: 'drh. Suli Teruli Sitepu' },
+          { nama: 'drh. Christina Retna Handayani, M.Si', foto: 'christina-retna-handayani.webp' },
+          { nama: 'drh. Edi Darudjati M.Si' },
+          { nama: 'drh. Dedi Chandra, M.Si', foto: 'dedi-chandra.webp' },
+          { nama: 'Hendri Pramata, A.Md.', foto: 'hendri-pramata.webp' },
+        ],
+        pengawas: [
+          { nama: 'drh. Leonardo Bishara, M.Si.', foto: 'leonardo-bishara.webp' },
+          { nama: 'Maman Sukirman, A.Md., SP', foto: 'maman-sukirman.webp' },
+        ],
       },
     },
     {
@@ -114,8 +143,18 @@ const ORG_DATA = {
         'Memberikan dukungan teknis bagi praktisi kedokteran hewan agar menjadi spesialis dalam disiplin ilmu tertentu.',
       ],
       pic: {
-        pengurus: ['drh. Siti Komariah', 'drh. Baiq Yunita Arisandi, MAP.', 'drh. Mochamad Aji Purbayu, M.Sc', 'Mochamad Nandan Iskandar, A.Md.', 'drh. Indra Exploitasia Semiawan, M.Si.'],
-        pengawas: ['drh. Suhartono, MM., M.Vet', 'Sri Wahyuni'],
+        pengurus: [
+          { nama: 'drh. Siti Komariah', foto: 'siti-komariah.webp' },
+          { nama: 'drh. Baiq Yunita Arisandi, MAP.', foto: 'baiq-yunita-arisandi.webp' },
+          { nama: 'drh. Mochamad Aji Purbayu, M.Sc', foto: 'mochamad-aji-purbayu.webp' },
+          { nama: 'Mochamad Nandan Iskandar, A.Md.', foto: 'mochamad-nandan-iskandar.webp' },
+          { nama: 'drh. Indra Exploitasia Semiawan, M.Si.', foto: 'indra-exploitasia-semiawan.webp' },
+          { nama: 'drh. Saswono', foto: 'saswono.webp' },
+        ],
+        pengawas: [
+          { nama: 'drh. Suhartono, MM., M.Vet', foto: 'suhartono.webp' },
+          { nama: 'Sri Wahyuni, S.Pt.', foto: 'sri-wahyuni.webp' },
+        ],
       },
     },
     {
@@ -130,8 +169,15 @@ const ORG_DATA = {
         'Berinteraksi dengan badan-badan internasional veteriner lainnya, mengenai isu-isu etik kedokteran hewan.',
       ],
       pic: {
-        pengurus: ['Dr. drh. M. Munawaroh, M.M.', 'drh. Sylvia Maharani', 'Bram Sumantri, A.Md.'],
-        pengawas: ['Kol. Kes. (Purn) drh. Martha Mangapulina, S.H., M.H.', 'Susilo, S.T.P, M.Si'],
+        pengurus: [
+          { nama: 'Dr. drh. M. Munawaroh, M.M.', foto: 'm-munawaroh.webp' },
+          { nama: 'drh. Sylvia Maharani', foto: 'sylvia-maharani.webp' },
+          { nama: 'Bram Sumantri, A.Md.', foto: 'bram-sumantri.webp' },
+        ],
+        pengawas: [
+          { nama: 'Kol. Kes. (Purn) drh. Martha Mangapulina, S.H., M.H.', foto: 'martha-mangapulina.webp' },
+          { nama: 'Susilo, S.T.P, M.Si', foto: 'susilo.webp' },
+        ],
       },
       sistem: {
         title: 'Sistem Disiplin PKVI mencakup',
@@ -157,11 +203,15 @@ function PeopleGrid() {
   const gridClass =
     people.length === 1
       ? 'grid-cols-1 max-w-xs mx-auto'
-      : people.length <= 4
-        ? 'grid-cols-2 md:grid-cols-4'
-        : people.length === 5
-          ? 'grid-cols-2 md:grid-cols-5'
-          : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6';
+      : people.length === 2
+        ? 'grid-cols-2 max-w-xl mx-auto'
+        : people.length === 3
+          ? 'grid-cols-2 sm:grid-cols-3 max-w-2xl mx-auto'
+          : people.length === 4
+            ? 'grid-cols-2 md:grid-cols-4'
+            : people.length === 5
+              ? 'grid-cols-2 md:grid-cols-5'
+              : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6';
 
   return (
     <div>
@@ -187,10 +237,22 @@ function PeopleGrid() {
             className={`rounded-xl p-5 text-center transition-all duration-300 hover:-translate-y-1 border shadow-soft hover:shadow-card
               ${i === 0 ? 'bg-kvi-600 text-white border-kvi-600' : 'bg-white text-navy-800 border-zinc-100'}`}
           >
-            <div className={`w-14 h-14 rounded-full mx-auto mb-3 flex items-center justify-center font-display font-bold text-lg
-              ${i === 0 ? 'bg-gold-400 text-kvi-900' : 'bg-kvi-50 text-kvi-600'}`}>
-              {p.inisial}
-            </div>
+            {p.foto && fotoUrl(p.foto) ? (
+              <img
+                src={fotoUrl(p.foto)}
+                alt={p.nama}
+                loading="lazy"
+                width={64}
+                height={64}
+                className={`w-16 h-16 rounded-full mx-auto mb-3 object-cover object-top ring-2
+                  ${i === 0 ? 'ring-gold-400' : 'ring-kvi-100'}`}
+              />
+            ) : (
+              <div className={`w-14 h-14 rounded-full mx-auto mb-3 flex items-center justify-center font-display font-bold text-lg
+                ${i === 0 ? 'bg-gold-400 text-kvi-900' : 'bg-kvi-50 text-kvi-600'}`}>
+                {p.inisial}
+              </div>
+            )}
             <p className={`font-display font-semibold text-sm leading-snug ${i === 0 ? 'text-white' : 'text-navy-800'}`}>{p.nama}</p>
             <p className={`text-xs mt-1 font-body ${i === 0 ? 'text-gold-300' : 'text-zinc-500'}`}>{p.jabatan}</p>
           </div>
@@ -290,6 +352,30 @@ function TugasSection() {
         </div>
       </div>
     </div>
+  );
+}
+
+/* Small PIC row: foto kecil + nama (fallback ke titik bila tanpa foto) */
+function PicItem({ p, placeholderClass }) {
+  const url = p.foto && fotoUrl(p.foto);
+  return (
+    <li className="flex items-center gap-2.5 text-[13px] text-zinc-600 font-body">
+      {url ? (
+        <img
+          src={url}
+          alt={p.nama}
+          loading="lazy"
+          width={28}
+          height={28}
+          className="w-7 h-7 rounded-full object-cover object-top flex-shrink-0 ring-1 ring-black/5"
+        />
+      ) : (
+        <span className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center ${placeholderClass}`}>
+          <span className="w-1.5 h-1.5 rounded-full bg-current opacity-70" />
+        </span>
+      )}
+      <span className="leading-snug">{p.nama}</span>
+    </li>
   );
 }
 
@@ -396,23 +482,17 @@ function DivisiTabs() {
               <div className="mb-7 grid sm:grid-cols-2 gap-4">
                 <div className="p-4 bg-kvi-50/60 rounded-xl border border-kvi-100">
                   <p className="text-[10px] uppercase tracking-widest text-kvi-600 font-bold mb-3">PIC · Dewan Pengurus</p>
-                  <ul className="space-y-1.5">
+                  <ul className="space-y-2">
                     {d.pic.pengurus.map((p, i) => (
-                      <li key={i} className="flex items-start gap-2 text-[13px] text-zinc-600 font-body">
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-kvi-500 flex-shrink-0" />
-                        <span className="leading-snug">{p}</span>
-                      </li>
+                      <PicItem key={i} p={p} placeholderClass="bg-kvi-100 text-kvi-500" />
                     ))}
                   </ul>
                 </div>
                 <div className="p-4 bg-navy-50 rounded-xl border border-navy-100">
                   <p className="text-[10px] uppercase tracking-widest text-navy-700 font-bold mb-3">PIC · Dewan Pengawas</p>
-                  <ul className="space-y-1.5">
+                  <ul className="space-y-2">
                     {d.pic.pengawas.map((p, i) => (
-                      <li key={i} className="flex items-start gap-2 text-[13px] text-zinc-600 font-body">
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-navy-700 flex-shrink-0" />
-                        <span className="leading-snug">{p}</span>
-                      </li>
+                      <PicItem key={i} p={p} placeholderClass="bg-navy-100 text-navy-600" />
                     ))}
                   </ul>
                 </div>

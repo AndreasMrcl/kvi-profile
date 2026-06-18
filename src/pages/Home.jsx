@@ -279,6 +279,19 @@ function NewsSection() {
   );
 }
 
+/* Inline renderer: turns **teks** menjadi bold */
+function renderInline(text) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i} className="font-semibold text-navy-800">
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      part
+    )
+  );
+}
+
 /* ── FAQ answer renderer (string | array of blocks) ── */
 function FAQAnswer({ answer }) {
   const blocks = Array.isArray(answer) ? answer : [answer];
@@ -287,7 +300,7 @@ function FAQAnswer({ answer }) {
     <div className="flex flex-col gap-3">
       {blocks.map((block, i) => {
         if (typeof block === "string") {
-          return <p key={i}>{block}</p>;
+          return <p key={i}>{renderInline(block)}</p>;
         }
         if (block.h) {
           return (
@@ -303,7 +316,7 @@ function FAQAnswer({ answer }) {
           return (
             <ul key={i} className="list-disc pl-5 flex flex-col gap-1">
               {block.ul.map((item, j) => (
-                <li key={j}>{item}</li>
+                <li key={j}>{renderInline(item)}</li>
               ))}
             </ul>
           );
@@ -312,7 +325,7 @@ function FAQAnswer({ answer }) {
           return (
             <ol key={i} className="list-decimal pl-5 flex flex-col gap-1">
               {block.ol.map((item, j) => (
-                <li key={j}>{item}</li>
+                <li key={j}>{renderInline(item)}</li>
               ))}
             </ol>
           );

@@ -55,10 +55,63 @@ export const homeStats = [
 // { ul: [...] } (daftar butir), { ol: [...] } (daftar bernomor).
 export const homeFaq = [
   {
+    q: 'Apa perbedaan Konsil Veteriner (VSB) dengan Organisasi Profesi (OP)?',
+    a: [
+      'Veterinary Statutory Body (VSB) atau Konsil Veteriner adalah lembaga regulator profesi yang independen dan akuntabel yang dibentuk berdasarkan ketentuan hukum untuk melindungi kepentingan masyarakat melalui pengaturan standar pendidikan, registrasi profesi, pembinaan dan pengawasan kompetensi, etika, dan disiplin dokter hewan serta paramedik veteriner.',
+      'Organisasi Profesi (OP) adalah organisasi yang dibentuk oleh dan untuk anggota profesi guna memperjuangkan, mengembangkan, dan melindungi kepentingan profesi, meningkatkan kapasitas anggotanya, serta menjadi wadah komunikasi, advokasi, dan pengembangan profesi.',
+      { h: 'VSB / Konsil Veteriner' },
+      'Lembaga yang mengatur profesi veteriner untuk melindungi masyarakat.',
+      {
+        ul: [
+          'Melindungi masyarakat (public protection)',
+          'Regulator profesi',
+          'Registrasi profesi',
+          'Standar pendidikan',
+          'Standar kompetensi',
+          'CPD',
+          'Etika dan disiplin',
+          'Akuntabel kepada masyarakat dan negara',
+          'Independen dari kepentingan kelompok profesi',
+        ],
+      },
+      { h: 'Organisasi Profesi (OP)' },
+      'Lembaga yang mewakili dan memperjuangkan kepentingan profesi dan anggotanya.',
+      {
+        ul: [
+          'Berbasis keanggotaan (membership organization)',
+          'Mewakili profesi',
+          'Advokasi profesi',
+          'Pengembangan profesi',
+          'Perlindungan anggota',
+          'Jejaring profesional',
+          'Pendidikan dan pelatihan',
+          'Akuntabel kepada anggota',
+        ],
+      },
+      'Secara ringkas: organisasi profesi adalah “rumah” bagi masing-masing dokter hewan dan paramedik veteriner, sedangkan Konsil Veteriner adalah “penjaga mutu” profesi. Organisasi profesi bertugas membela profesi, sedangkan Konsil Veteriner bertugas menjaga agar profesi dijalankan secara kompeten, beretika, dan aman bagi masyarakat.',
+    ],
+  },
+  {
     q: 'Apa itu Konsil Veteriner Indonesia (KVI)?',
     a: [
-      'Konsil Veteriner Indonesia adalah badan regulator profesi kedokteran hewan yang independen dan bersifat nasional yang bertugas menjamin mutu pendidikan, kompetensi, registrasi, layanan, etika, dan disiplin dokter hewan serta paramedis veteriner untuk menjamin mutu pelayanan veteriner dan perlindungan masyarakat.',
-      'Konsil Veteriner Indonesia menghimpun seluruh dokter hewan dan paramedis veteriner Indonesia dalam satu sistem registrasi nasional, sebagai registran profesi, yang memperoleh hak melakukan layanan veteriner dan perlindungan profesi berdasarkan standar kompetensi, etika, dan disiplin yang ditetapkan untuk kepentingan masyarakat. Registran profesi bukan anggota KVI.',
+      'Konsil Veteriner Indonesia adalah badan regulator profesi kedokteran hewan yang independen dan bersifat nasional yang bertugas menjamin mutu pendidikan, kompetensi, registrasi profesi, layanan, etika, dan disiplin dokter hewan serta paramedik veteriner untuk menjamin mutu pelayanan veteriner dan perlindungan masyarakat. KVI merupakan VSB Indonesia.',
+      'Konsil Veteriner Indonesia menghimpun seluruh dokter hewan dan paramedik veteriner Indonesia dalam satu sistem registrasi nasional, sebagai registran profesi, yang memperoleh hak melakukan layanan veteriner dan perlindungan profesi berdasarkan standar kompetensi, etika, dan disiplin yang ditetapkan untuk kepentingan masyarakat. Registran profesi bukan anggota KVI.',
+    ],
+  },
+  {
+    q: 'Mengapa Indonesia membutuhkan KVI?',
+    a: [
+      'Indonesia membutuhkan KVI sebagai Veterinary Statutory Body (VSB) nasional, karena:',
+      {
+        ol: [
+          'Meskipun Indonesia telah menjadi anggota WOAH sejak tahun 1951, namun hingga saat ini belum memiliki VSB yang berfungsi penuh sebagaimana direkomendasikan oleh World Organisation for Animal Health (WOAH). Keberadaan VSB merupakan salah satu elemen penting dalam tata kelola pelayanan veteriner modern untuk menjamin mutu pendidikan, kompetensi, registrasi, etika, dan disiplin profesi veteriner dalam rangka melindungi kepentingan masyarakat.',
+          'Indonesia belum memiliki sistem registrasi nasional yang mampu menyediakan data yang akurat mengenai jumlah, distribusi, kompetensi, dan bidang layanan kedokteran hewan. Padahal data tersebut sangat penting untuk perencanaan sumber daya veteriner nasional, pengendalian penyakit hewan dan zoonosis, keamanan pangan asal hewan, serta implementasi One Health.',
+          'Kebutuhan akan sistem registrasi nasional menjadi semakin mendesak seiring meningkatnya minat berbagai perguruan tinggi untuk membuka Program Studi Kedokteran Hewan, Program Studi Kesehatan Hewan/Paramedik Veteriner dan Sarjana Terapan Teknologi Veteriner/Paramedik Veteriner. Tanpa data nasional yang akurat mengenai kebutuhan tenaga veteriner, jumlah lulusan yang tersedia, distribusi lapangan kerja, dan proyeksi kebutuhan masa depan, Indonesia berisiko menghadapi ketidakseimbangan antara produksi lulusan dan kebutuhan riil pembangunan nasional. Kondisi tersebut dapat mengakibatkan kekurangan tenaga veteriner di wilayah tertentu sekaligus kelebihan pasokan lulusan di wilayah lain.',
+          'Sebagai regulator profesi, KVI dapat menyediakan basis data nasional yang diperlukan untuk mendukung pengambilan kebijakan berbasis bukti (evidence-based policy) terkait pendidikan, registrasi profesi, distribusi, dan pengembangan sumber daya veteriner Indonesia.',
+          'Ketiadaan VSB menyebabkan Indonesia belum dapat berpartisipasi secara penuh dalam ASEAN Veterinary Statutory Body Network (AVSBN) yang saat ini sedang mempersiapkan kerangka Mutual Recognition Arrangement (MRA) profesi dokter hewan di kawasan ASEAN. Tanpa VSB yang diakui, Indonesia berisiko tertinggal dalam harmonisasi standar profesi veteriner regional serta kehilangan peluang untuk meningkatkan mobilitas dan daya saing dokter hewan Indonesia di tingkat ASEAN.',
+          'Oleh karena itu, pembentukan KVI merupakan langkah strategis untuk membangun sistem registrasi nasional profesi veteriner, memperkuat tata kelola pendidikan dan profesi sesuai rekomendasi WOAH, mendukung perencanaan kebutuhan sumber daya veteriner nasional, memperkuat posisi Indonesia di ASEAN, serta mempersiapkan fondasi kelembagaan bagi Konsil Veteriner Indonesia yang akan memperoleh legitimasi penuh melalui Undang-Undang Kedokteran Hewan.',
+        ],
+      },
     ],
   },
   {
@@ -74,8 +127,9 @@ export const homeFaq = [
           'Paramedik Veteriner dan Inseminator Indonesia (PARAVETINDO);',
           'Unsur pemerintah yang ditunjuk dari Kementerian Pertanian;',
           'Unsur pemerintah yang ditunjuk dari Kementerian Kehutanan;',
-          'Unsur pemerintah yang ditunjuk dari Kementerian Kelautan dan Perikanan; dan',
-          'Unsur masyarakat.',
+          'Unsur pemerintah yang ditunjuk dari Kementerian Kelautan dan Perikanan;',
+          'Asosiasi Program Studi Diploma Tiga (D3) Kesehatan Hewan/Paramedik Veteriner Indonesia (APSKHI); dan',
+          'Unsur perwakilan masyarakat.',
         ],
       },
     ],
@@ -83,17 +137,31 @@ export const homeFaq = [
   {
     q: 'Apa itu Registrasi KVI?',
     a: [
-      'Registrasi bukan merupakan keanggotaan KVI, melainkan pengakuan profesional yang diberikan oleh KVI kepada individu yang memenuhi persyaratan untuk menjalankan profesi veteriner di Indonesia.',
-      'Setiap dokter hewan dan paramedis veteriner yang memenuhi persyaratan berhak mengajukan registrasi kepada KVI untuk memperoleh pengakuan sebagai “Registran KVI” dan dicantumkan dalam Register Nasional Profesi Veteriner Indonesia.',
+      'Registrasi merupakan pengakuan profesional yang diberikan oleh KVI kepada individu yang memenuhi persyaratan untuk menjalankan profesi veteriner di Indonesia. Registran bukan merupakan keanggotaan KVI.',
+      'Setiap dokter hewan dan paramedik veteriner yang memenuhi persyaratan wajib mengajukan registrasi kepada KVI untuk memperoleh pengakuan sebagai Registran KVI dan dicantumkan dalam Register Nasional Profesi Veteriner Indonesia.',
       'Registrasi dilakukan melalui mekanisme verifikasi kualifikasi pendidikan, kompetensi, identitas, serta persyaratan profesi lainnya yang ditetapkan oleh KVI.',
+    ],
+  },
+  {
+    q: 'Mengapa registrasi nasional diperlukan?',
+    a: [
+      'Indonesia belum memiliki sistem registrasi nasional yang mampu menyediakan data yang akurat mengenai jumlah, distribusi, kompetensi, dan bidang layanan kedokteran hewan. Padahal data tersebut sangat penting untuk:',
+      {
+        ol: [
+          'Digunakan sebagai dasar melakukan perencanaan sumber daya veteriner nasional, pengendalian penyakit hewan dan zoonosis, keamanan pangan asal hewan, serta implementasi One Health.',
+          'Mengatur minat berbagai perguruan tinggi untuk membuka Program Studi Kedokteran Hewan, Program Studi Kesehatan Hewan/Paramedik Veteriner dan Sarjana Terapan Teknologi Veteriner/Paramedik Veteriner. Tanpa data nasional yang akurat mengenai kebutuhan tenaga veteriner, jumlah lulusan yang tersedia, distribusi lapangan kerja, dan proyeksi kebutuhan masa depan, Indonesia berisiko menghadapi ketidakseimbangan antara produksi lulusan dan kebutuhan riil pembangunan nasional. Kondisi tersebut dapat mengakibatkan kekurangan tenaga veteriner di wilayah tertentu sekaligus kelebihan pasokan lulusan di wilayah lain.',
+          'Mengatur minat berbagai sekolah untuk membuka Program Studi Kesehatan Hewan/Keperawatan Hewan.',
+          'Digunakan sebagai basis data nasional yang diperlukan dalam mendukung pengambilan kebijakan berbasis bukti (evidence-based policy) pengembangan sumber daya veteriner Indonesia.',
+        ],
+      },
     ],
   },
   {
     q: 'Siapa yang disebut Registran KVI?',
     a: [
-      'Registran KVI adalah dokter hewan dan paramedis veteriner yang telah melakukan registrasi dan memperoleh Nomor Registrasi Nasional Profesi Veteriner Indonesia (NRNPVI) dan tercantum dalam sistem Register Nasional Profesi Veteriner Indonesia (RNPVI) dari KVI.',
-      'Nomor Registrasi Nasional Profesi Veteriner Indonesia (NRNPVI) terdiri dari Nomor Registrasi Nasional Dokter Hewan Indonesia (NRNDHI) dan Nomor Registrasi Nasional Paramedis Veteriner Indonesia (NRNPVI).',
-      'Register Nasional Profesi Veteriner Indonesia (RNPVI) terdiri dari Register Nasional Dokter Hewan Indonesia (RNDHI) dan Register Nasional Paramedis Veteriner Indonesia (RNPVI).',
+      'Registran KVI adalah dokter hewan dan paramedik veteriner yang telah melakukan registrasi dan memperoleh Nomor Registrasi Nasional Profesi Veteriner Indonesia (NRNPVI) dan tercantum dalam sistem Register Nasional Profesi Veteriner Indonesia (RNPVI) dari KVI.',
+      'Nomor Registrasi Nasional Profesi Veteriner Indonesia (NRNPVI) terdiri dari Nomor Registrasi Nasional Dokter Hewan Indonesia (NRNDHI) dan Nomor Registrasi Nasional Paramedik Veteriner Indonesia (NRNPVI).',
+      'Register Nasional Profesi Veteriner Indonesia (RNPVI) terdiri dari Register Nasional Dokter Hewan Indonesia (RNDHI) dan Register Nasional Paramedik Veteriner Indonesia (RNPVI).',
     ],
   },
   {
@@ -111,23 +179,56 @@ export const homeFaq = [
         ],
       },
       'Setelah dilakukan verifikasi, KVI akan menerbitkan: Nomor Registrasi Nasional Dokter Hewan Indonesia (NRNDHI), dan nama yang bersangkutan tercantum dalam sistem: Register Nasional Dokter Hewan Indonesia (RNDHI).',
-      { h: 'Jalur Registrasi Paramedis Veteriner' },
+      { h: 'Jalur Registrasi Paramedik Veteriner' },
       'Calon registran mengajukan permohonan melalui portal KVI dengan melampirkan:',
       {
         ul: [
           'Identitas diri',
-          'Ijazah pendidikan atau sertifikat kompetensi bidang kesehatan hewan',
+          'Ijazah pendidikan, sertifikat kompetensi bidang kesehatan hewan atau Surat Keputusan pengangkatan sebagai Paramedik Veteriner (bagi ASN)',
           'Pas foto',
           'Surat pernyataan mematuhi standar dan kode etik profesi',
         ],
       },
-      'Setelah dilakukan verifikasi, KVI akan menerbitkan: Nomor Registrasi Nasional Paramedis Veteriner Indonesia (NRNPVI), dan nama yang bersangkutan tercantum dalam sistem: Register Nasional Paramedis Veteriner Indonesia (RNPVI).',
+      'Setelah dilakukan verifikasi, KVI akan menerbitkan: Nomor Registrasi Nasional Paramedik Veteriner Indonesia (NRNPVI), dan nama yang bersangkutan tercantum dalam sistem: Register Nasional Paramedik Veteriner Indonesia (RNPVI).',
+    ],
+  },
+  {
+    q: 'Bagaimana tahapan registrasi KVI?',
+    a: [
+      { h: 'Tahap 1 — Registrasi Awal (2026–2028)' },
+      'Fokus pada pendataan nasional dokter hewan dan paramedik veteriner Indonesia. Tujuan:',
+      {
+        ul: [
+          'Mengetahui jumlah',
+          'Mengetahui distribusi wilayah',
+          'Mengetahui bidang layanan',
+        ],
+      },
+      { h: 'Tahap 2 — Registrasi Profesional' },
+      'Mulai dikaitkan dengan:',
+      {
+        ul: [
+          'Standar profesi',
+          'CPD',
+          'Kepatuhan etika',
+          'Status disiplin profesi',
+        ],
+      },
+      { h: 'Tahap 3 — Lisensi Praktik' },
+      'Apabila RUU Kedokteran Hewan telah berlaku. Registrasi menjadi syarat:',
+      {
+        ul: [
+          'Layanan kedokteran hewan',
+          'Penandatanganan sertifikat veteriner',
+          'Otorisasi profesional lainnya',
+        ],
+      },
     ],
   },
   {
     q: 'Apa hubungan Registrasi KVI dengan SIP?',
     a: [
-      'Selama belum terdapat ketentuan peraturan perundang-undangan yang mengatur lain, registrasi yang diterbitkan oleh KVI tidak terkait dengan dan tidak untuk menggantikan Surat Izin Praktik atau bentuk perizinan lain yang berlaku saat ini, sesuai ketentuan peraturan perundang-undangan.',
+      'Selama belum terdapat ketentuan peraturan perundang-undangan yang mengatur lain, registrasi yang diterbitkan oleh KVI **tidak terkait dengan** dan **tidak untuk menggantikan** Surat Izin Praktik atau bentuk perizinan lain yang berlaku saat ini, sesuai ketentuan peraturan perundang-undangan.',
       'Registrasi KVI berfungsi sebagai pengakuan profesional nasional dan basis data profesi veteriner Indonesia, serta menjadi landasan pengembangan sistem regulasi profesi veteriner di masa mendatang.',
     ],
   },
