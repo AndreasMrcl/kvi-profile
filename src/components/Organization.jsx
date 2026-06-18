@@ -24,7 +24,7 @@ const ORG_DATA = {
     { inisial: 'HE', nama: 'drh. Henny Endah Anggraeni, M.Sc.',      jabatan: 'Bendahara',         foto: 'henny-endah-anggraeni.webp' },
   ],
   pengawas: [
-    { inisial: 'EN', nama: 'Eko Kusumo Nugroho, MBA',                              jabatan: 'Ketua',     foto: 'eko-nugroho.webp' },
+    { inisial: 'EN', nama: 'Eko Kusumo Nugroho, Bsc, MBA',                              jabatan: 'Ketua',     foto: 'eko-nugroho.webp' },
     { inisial: 'TF', nama: 'drh. Teuku Reza Ferasyi, M.Sc., Ph.D',                 jabatan: 'Anggota 1', foto: 'teuku-reza-ferasyi.webp' },
     { inisial: 'SU', nama: 'Susilo, S.T.P, M.Si.',                                 jabatan: 'Anggota 2', foto: 'susilo.webp' },
     { inisial: 'WA', nama: 'Wijayati Andadari, SE (Alm)',                          jabatan: 'Anggota 3' },

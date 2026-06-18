@@ -35,6 +35,7 @@ export default function Register() {
   });
 
   const [error, setError] = useState("");
+  const [agreed, setAgreed] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,6 +81,11 @@ export default function Register() {
 
     if (formData.password !== formData.password_confirmation) {
       setError("Password dan Konfirmasi Password tidak cocok.");
+      return;
+    }
+
+    if (!agreed) {
+      setError("Anda harus menyetujui pernyataan kesediaan sebelum mendaftar.");
       return;
     }
 
@@ -377,9 +383,31 @@ export default function Register() {
               </div>
             </div>
 
+            {/* Pernyataan Kesediaan */}
+            <div className="border-t pt-6">
+              <p className="text-sm text-gray-700 leading-relaxed mb-3">
+                Dengan mengirimkan permohonan registrasi ini, saya menyatakan bersedia
+                mematuhi standar profesi, standar kompetensi, kode etik profesi, dan
+                ketentuan yang berlaku sesuai dengan profesi saya.
+              </p>
+              <label className="flex items-start gap-3 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={agreed}
+                  onChange={(e) => setAgreed(e.target.checked)}
+                  disabled={isLoading}
+                  className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <span className="text-sm font-medium text-gray-800">
+                  Saya bersedia dan menyetujui pernyataan di atas.{" "}
+                  <span className="text-red-500">*</span>
+                </span>
+              </label>
+            </div>
+
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || !agreed}
               className="w-full md:w-1/2 mx-auto block mt-8 bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition shadow-md"
             >
               {isLoading ? "Menyimpan Data..." : "Daftar & Buat Akun"}

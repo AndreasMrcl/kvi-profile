@@ -122,13 +122,14 @@ export const homeFaq = [
         ol: [
           'Asosiasi Fakultas Kedokteran Hewan Indonesia (AFKHI);',
           'Asosiasi Program Studi Sarjana Terapan Veteriner Indonesia (APSTVI);',
+          'Asosiasi Program Studi Diploma Tiga (D3) Kesehatan Hewan/Paramedik Veteriner Indonesia (APSKHI);',
           'Perhimpunan Dokter Hewan Indonesia (PDHI);',
           'Perkumpulan Paramedik Veteriner Indonesia (PAVETI);',
           'Paramedik Veteriner dan Inseminator Indonesia (PARAVETINDO);',
           'Unsur pemerintah yang ditunjuk dari Kementerian Pertanian;',
           'Unsur pemerintah yang ditunjuk dari Kementerian Kehutanan;',
           'Unsur pemerintah yang ditunjuk dari Kementerian Kelautan dan Perikanan;',
-          'Asosiasi Program Studi Diploma Tiga (D3) Kesehatan Hewan/Paramedik Veteriner Indonesia (APSKHI); dan',
+          'Unsur pemerintah yang ditunjuk dari Badan Karantina Nasional (Barantin); dan',
           'Unsur perwakilan masyarakat.',
         ],
       },
@@ -184,7 +185,7 @@ export const homeFaq = [
       {
         ul: [
           'Identitas diri',
-          'Ijazah pendidikan, sertifikat kompetensi bidang kesehatan hewan atau Surat Keputusan pengangkatan sebagai Paramedik Veteriner (bagi ASN)',
+          'Ijazah pendidikan/sertifikat kompetensi bidang kesehatan hewan atau Surat Keputusan pengangkatan sebagai Paramedik Veteriner (bagi ASN)',
           'Pas foto',
           'Surat pernyataan mematuhi standar dan kode etik profesi',
         ],
