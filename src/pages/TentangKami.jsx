@@ -173,7 +173,7 @@ function MembershipSection() {
                 Informasi Keanggotaan KVI
               </h3>
               <p className="text-white/65 text-sm leading-relaxed mb-6">
-                Setiap anggota memiliki hak dan kewajiban yang ditetapkan dalam
+                Setiap institusi anggota memiliki hak dan kewajiban yang ditetapkan dalam
                 AD/ART perkumpulan.
               </p>
               <Link
