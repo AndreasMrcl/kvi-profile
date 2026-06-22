@@ -558,7 +558,7 @@
                     <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
                         href="{{ route('dashboard') }}">Dashboard</a>
                     <a class="nav-link {{ request()->routeIs('admin.members.*') ? 'active' : '' }}"
-                        href="{{ route('admin.members.index') }}">Anggota</a>
+                        href="{{ route('admin.members.index') }}">Registran</a>
                     <a class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}"
                         href="{{ route('admin.users.index') }}">Admin Users</a>
                     <a class="nav-link {{ request()->routeIs('admin.cms.*') ? 'active' : '' }}"

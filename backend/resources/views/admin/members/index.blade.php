@@ -13,8 +13,8 @@
     ];
 @endphp
 
-@section('title', 'Anggota')
-@section('heading', 'Anggota Terdaftar')
+@section('title', 'Registran')
+@section('heading', 'Registran Terdaftar')
 @section('description', 'Daftar dokter hewan & paramedis veteriner yang terdaftar di KVI.')
 
 @section('content')
@@ -24,7 +24,7 @@
             <div>
                 <label for="q">Pencarian</label>
                 <input id="q" type="text" name="q" value="{{ $filters['q'] }}"
-                       placeholder="Nama, email, no. ijazah, atau no. anggota">
+                       placeholder="Nama, email, no. ijazah, atau no. registran">
             </div>
             <div>
                 <label for="category">Kategori</label>
@@ -41,7 +41,7 @@
                 </select>
             </div>
             <div>
-                <label for="membership_status">Status Keanggotaan</label>
+                <label for="membership_status">Status Registran</label>
                 <select id="membership_status" name="membership_status" class="select">
                     <option value="">Semua</option>
                     @foreach ($statuses as $status)
@@ -75,7 +75,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>No. Anggota</th>
+                    <th>No. Registran</th>
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Kategori</th>
@@ -121,7 +121,7 @@
                             <div class="actions">
                                 <a href="{{ route('admin.members.show', $member) }}" class="btn btn-outline btn-sm">Detail</a>
                                 <form method="post" action="{{ route('admin.members.destroy', $member) }}"
-                                      data-confirm="Hapus anggota ini secara permanen? Tindakan ini tidak bisa dibatalkan."
+                                      data-confirm="Hapus registran ini secara permanen? Tindakan ini tidak bisa dibatalkan."
                                       data-confirm-icon="warning" data-confirm-yes="Ya, hapus">
                                     @csrf
                                     @method('DELETE')
@@ -132,7 +132,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td class="note" colspan="8">Tidak ada anggota yang cocok dengan filter.</td>
+                        <td class="note" colspan="8">Tidak ada registran yang cocok dengan filter.</td>
                     </tr>
                 @endforelse
             </tbody>

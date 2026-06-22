@@ -18,12 +18,12 @@
     $hasDiploma = !empty($member->diploma_number);
 @endphp
 
-@section('title', 'Anggota: ' . $member->name)
+@section('title', 'Registran: ' . $member->name)
 @section('breadcrumb')
     <a href="{{ route('admin.members.index') }}">Kembali ke daftar</a>
 @endsection
 @section('heading', $member->name)
-@section('description', 'Detail data anggota & aksi keanggotaan.')
+@section('description', 'Detail data registran & aksi registran.')
 
 @section('content')
     @if ($errors->any())
@@ -32,7 +32,7 @@
 
     <div class="card stack">
         <div class="detail-grid">
-            <div class="label">No. Anggota</div>
+            <div class="label">No. Registran</div>
             <div>
                 @if ($member->membership_number)
                     <strong style="font-size: 18px;">{{ $member->membership_number }}</strong>
@@ -41,7 +41,7 @@
                 @endif
             </div>
 
-            <div class="label">Status Keanggotaan</div>
+            <div class="label">Status Registran</div>
             <div>
                 <span class="badge {{ $badge }}">{{ $statusLabel }}</span>
                 @if ($status === User::STATUS_AWAITING_DIPLOMA && $member->diploma_deadline_at)
@@ -125,31 +125,31 @@
             <p class="card-title">Aksi Verifikasi</p>
 
             <form class="form-grid" method="post" action="{{ route('admin.members.approve', $member) }}"
-                  data-confirm="Sahkan keanggotaan ini? Nomor anggota akan diterbitkan otomatis." data-confirm-icon="question" data-confirm-yes="Ya, sahkan">
+                  data-confirm="Sahkan registran ini? Nomor registran akan diterbitkan otomatis." data-confirm-icon="question" data-confirm-yes="Ya, sahkan">
                 @csrf
                 <div>
                     <label for="approve-notes">Catatan (opsional)</label>
                     <textarea id="approve-notes" name="verification_notes"
                               placeholder="Misal: sudah cek di portal universitas..."></textarea>
                     <div class="note">
-                        Menyahkan keanggotaan akan menerbitkan nomor anggota baru otomatis sesuai kategori.
+                        Menyahkan registran akan menerbitkan nomor registran baru otomatis sesuai kategori.
                     </div>
                 </div>
                 <div class="button-row">
-                    <button type="submit" class="btn">Sahkan Keanggotaan</button>
+                    <button type="submit" class="btn">Sahkan Registran</button>
                 </div>
             </form>
 
             <form class="form-grid" method="post" action="{{ route('admin.members.reject', $member) }}"
-                  data-confirm="Tolak keanggotaan ini?" data-confirm-yes="Ya, tolak">
+                  data-confirm="Tolak registran ini?" data-confirm-yes="Ya, tolak">
                 @csrf
                 <div>
                     <label for="reject-notes">Alasan Penolakan</label>
                     <textarea id="reject-notes" name="verification_notes"
-                              placeholder="Alasan keanggotaan ditolak..." required></textarea>
+                              placeholder="Alasan registran ditolak..." required></textarea>
                 </div>
                 <div class="button-row">
-                    <button type="submit" class="btn btn-danger">Tolak Keanggotaan</button>
+                    <button type="submit" class="btn btn-danger">Tolak Registran</button>
                 </div>
             </form>
         </div>
@@ -157,9 +157,9 @@
 
     @if ($status === User::STATUS_ACTIVE)
         <div class="card stack" style="margin-top: 16px;">
-            <p class="card-title">Suspend Anggota</p>
+            <p class="card-title">Suspend Registran</p>
             <form class="form-grid" method="post" action="{{ route('admin.members.suspend', $member) }}"
-                  data-confirm="Suspend anggota ini?" data-confirm-yes="Ya, suspend">
+                  data-confirm="Suspend registran ini?" data-confirm-yes="Ya, suspend">
                 @csrf
                 <div>
                     <label for="suspend-notes">Alasan Suspend</label>
@@ -177,7 +177,7 @@
         <div class="card stack" style="margin-top: 16px;">
             <p class="card-title">Aktifkan Kembali</p>
             <form method="post" action="{{ route('admin.members.reactivate', $member) }}"
-                  data-confirm="Aktifkan kembali anggota ini?" data-confirm-icon="question" data-confirm-yes="Ya, aktifkan">
+                  data-confirm="Aktifkan kembali registran ini?" data-confirm-icon="question" data-confirm-yes="Ya, aktifkan">
                 @csrf
                 <div class="button-row">
                     <button type="submit" class="btn">Aktifkan Kembali</button>
@@ -189,23 +189,23 @@
     @if ($status === User::STATUS_AWAITING_DIPLOMA)
         <div class="card stack" style="margin-top: 16px;">
             <p class="note">
-                Anggota belum mengisi nomor ijazah. Verifikasi baru bisa dilakukan setelah anggota
+                Registran belum mengisi nomor ijazah. Verifikasi baru bisa dilakukan setelah registran
                 melengkapi data di portal profil.
             </p>
         </div>
     @endif
 
     <div class="card stack" style="margin-top: 16px;">
-        <p class="card-title">Hapus Anggota</p>
+        <p class="card-title">Hapus Registran</p>
         <p class="note">
-            Menghapus akan menghilangkan data anggota ini secara permanen dan tidak bisa dibatalkan.
+            Menghapus akan menghilangkan data registran ini secara permanen dan tidak bisa dibatalkan.
         </p>
         <form method="post" action="{{ route('admin.members.destroy', $member) }}"
-              data-confirm="Hapus anggota ini secara permanen? Tindakan ini tidak bisa dibatalkan." data-confirm-yes="Ya, hapus">
+              data-confirm="Hapus registran ini secara permanen? Tindakan ini tidak bisa dibatalkan." data-confirm-yes="Ya, hapus">
             @csrf
             @method('DELETE')
             <div class="button-row">
-                <button type="submit" class="btn btn-danger">Hapus Anggota</button>
+                <button type="submit" class="btn btn-danger">Hapus Registran</button>
             </div>
         </form>
     </div>

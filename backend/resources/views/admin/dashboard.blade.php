@@ -6,9 +6,9 @@
 
 @section('title', 'Dashboard')
 @section('heading', 'Dashboard')
-@section('description', 'Ringkasan keanggotaan KVI & konten website.')
+@section('description', 'Ringkasan registran KVI & konten website.')
 @section('actions')
-    <a class="btn btn-outline" href="{{ route('admin.members.index') }}">Kelola Anggota</a>
+    <a class="btn btn-outline" href="{{ route('admin.members.index') }}">Kelola Registran</a>
     <a class="btn btn-ghost" href="{{ route('admin.cms.index') }}">Kelola Berita</a>
 @endsection
 
@@ -16,12 +16,12 @@
     <div class="stack">
         <div class="stats-grid">
             <div class="card stat-card">
-                <div class="stat-label">Total Anggota</div>
+                <div class="stat-label">Total Registran</div>
                 <div class="stat-value">{{ $members_total }}</div>
                 <div class="note">Semua status</div>
             </div>
             <div class="card stat-card">
-                <div class="stat-label">Anggota Aktif</div>
+                <div class="stat-label">Registran Aktif</div>
                 <div class="stat-value">{{ $members_active }}</div>
                 <div class="note">Sudah disahkan</div>
             </div>
