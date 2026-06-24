@@ -71,6 +71,7 @@ const ORG_DATA = {
         pengurus: [
           { nama: 'drh. Andi Wijanarko, M.M.', foto: 'andi-wijanarko.webp' },
           { nama: 'Sindu Wicaksono, S.Pt', foto: 'sindu-wicaksono.webp' },
+          { nama: 'drh. Woro Danur Wendo, M.Sc., Ph.D.', foto: 'woro-danur-wendo.webp' },
         ],
         pengawas: [
           { nama: 'drh. Teuku Reza Ferasyi, M.Sc., Ph.D', foto: 'teuku-reza-ferasyi.webp' },
