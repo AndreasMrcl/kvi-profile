@@ -97,7 +97,7 @@ const ORG_DATA = {
           { nama: 'Prof. Dr. drh. Fedik Abdul Rantam', foto: 'fedik-abdul-rantam.webp' },
           { nama: 'Prof. Dr. drh. Widagdo Sri Nugroho, MP', foto: 'widagdo-sri-nugroho.webp' },
           { nama: 'drh. Henny Endah Anggraeni, M.Sc.', foto: 'henny-endah-anggraeni.webp' },
-          { nama: 'drh. Debby Fadhilah Pazra', foto: 'debby-fadhilah-pazra.webp' },
+          { nama: 'Dr. drh. Debby Fadhilah Pazra, M.Si', foto: 'debby-fadhilah-pazra.webp' },
         ],
         pengawas: [
           { nama: 'Dr. drh. Sophy Setyawati, M.Si.', foto: 'sophy-setyawati.webp' },
